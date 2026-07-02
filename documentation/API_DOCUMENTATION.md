@@ -1,8 +1,8 @@
-# TradeTally API Documentation
+# Blipyy API Documentation
 
 ## Authentication
 
-TradeTally supports two authentication methods:
+Blipyy supports two authentication methods:
 
 ### 1. JWT Token Authentication (Web UI)
 ```

@@ -39,12 +39,12 @@ class EmailService {
         pass: process.env.EMAIL_PASS
       },
       dkim: process.env.DKIM_PRIVATE_KEY ? {
-        domainName: process.env.EMAIL_DOMAIN || 'tradetally.io',
+        domainName: process.env.EMAIL_DOMAIN || 'blipyy.io',
         keySelector: process.env.DKIM_SELECTOR || 'default',
         privateKey: process.env.DKIM_PRIVATE_KEY
       } : undefined,
       headers: {
-        'X-Mailer': 'TradeTally Email Service',
+        'X-Mailer': 'Blipyy Email Service',
         'X-Priority': '3',
         'X-MSMail-Priority': 'Normal',
         'Importance': 'Normal'
@@ -59,7 +59,7 @@ class EmailService {
   static getTransactionalFromAddress() {
     return process.env.EMAIL_FROM_TRANSACTIONAL ||
       process.env.EMAIL_FROM ||
-      'noreply@tradetally.io';
+      'noreply@blipyy.io';
   }
 
   static getMarketingFromAddress() {
@@ -95,7 +95,7 @@ class EmailService {
                 <!-- Logo -->
                 <tr>
                   <td style="padding: 0 0 32px 0; text-align: center;">
-                    <span style="font-size: 22px; font-weight: 700; color: #F0812A; letter-spacing: -0.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">TradeTally</span>
+                    <span style="font-size: 22px; font-weight: 700; color: #F0812A; letter-spacing: -0.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Blipyy</span>
                   </td>
                 </tr>
                 <!-- Card -->
@@ -114,14 +114,14 @@ class EmailService {
                 <tr>
                   <td style="padding: 28px 0 0 0; text-align: center;">
                     <p style="color: #a1a1aa; font-size: 12px; line-height: 1.6; margin: 0 0 8px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-                      <a href="https://tradetally.io" style="color: #F0812A; text-decoration: none; font-weight: 600;">TradeTally</a>
+                      <a href="https://blipyy.io" style="color: #F0812A; text-decoration: none; font-weight: 600;">Blipyy</a>
                       &nbsp;&middot;&nbsp;
-                      <a href="https://tradetally.io/privacy" style="color: #a1a1aa; text-decoration: none;">Privacy</a>
+                      <a href="https://blipyy.io/privacy" style="color: #a1a1aa; text-decoration: none;">Privacy</a>
                       &nbsp;&middot;&nbsp;
-                      <a href="https://tradetally.io/terms" style="color: #a1a1aa; text-decoration: none;">Terms</a>
+                      <a href="https://blipyy.io/terms" style="color: #a1a1aa; text-decoration: none;">Terms</a>
                     </p>
                     <p style="color: #d4d4d8; font-size: 11px; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-                      You received this email because you have a TradeTally account.
+                      You received this email because you have a Blipyy account.
                     </p>
                   </td>
                 </tr>
@@ -177,7 +177,7 @@ class EmailService {
    */
   static getUnsubscribeUrl(userId) {
     const token = unsubscribeService.generateToken(userId);
-    const baseUrl = process.env.FRONTEND_URL || 'https://tradetally.io';
+    const baseUrl = process.env.FRONTEND_URL || 'https://blipyy.io';
     return `${baseUrl}/unsubscribe?token=${token}`;
   }
 
@@ -187,7 +187,7 @@ class EmailService {
    */
   static getOneClickUnsubscribeUrl(userId) {
     const token = unsubscribeService.generateToken(userId);
-    const baseUrl = process.env.API_BASE_URL || process.env.FRONTEND_URL || 'https://tradetally.io';
+    const baseUrl = process.env.API_BASE_URL || process.env.FRONTEND_URL || 'https://blipyy.io';
     const apiBaseUrl = baseUrl.replace(/\/$/, '').replace(/\/api$/, '');
     return `${apiBaseUrl}/api/unsubscribe?token=${token}`;
   }
@@ -281,7 +281,7 @@ class EmailService {
         Verify your email
       </h1>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 28px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        Welcome to TradeTally. Confirm your email address to get started with your trading journal.
+        Welcome to Blipyy. Confirm your email address to get started with your trading journal.
       </p>
 
       <div style="text-align: center; margin: 0 0 28px 0;">
@@ -297,16 +297,16 @@ class EmailService {
 
     let mailOptions = {
       from: {
-        name: 'TradeTally',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       to: email,
-      subject: 'Verify your email - TradeTally',
-      html: this.getBaseTemplate('Verify Your TradeTally Account', content),
-      text: `Welcome to TradeTally! Please verify your email address by visiting: ${verificationUrl}`,
+      subject: 'Verify your email - Blipyy',
+      html: this.getBaseTemplate('Verify Your Blipyy Account', content),
+      text: `Welcome to Blipyy! Please verify your email address by visiting: ${verificationUrl}`,
       headers: {
         'X-Entity-Ref-ID': `verify-${Date.now()}`,
-        'Message-ID': `<verify-${Date.now()}@tradetally.io>`
+        'Message-ID': `<verify-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -334,7 +334,7 @@ class EmailService {
         Reset your password
       </h1>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 28px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        We received a request to reset the password for your TradeTally account.
+        We received a request to reset the password for your Blipyy account.
       </p>
 
       <div style="text-align: center; margin: 0 0 28px 0;">
@@ -350,16 +350,16 @@ class EmailService {
 
     let mailOptions = {
       from: {
-        name: 'TradeTally',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       to: email,
-      subject: 'Reset your password - TradeTally',
-      html: this.getBaseTemplate('Reset Your TradeTally Password', content),
-      text: `Reset your TradeTally password by visiting: ${resetUrl}`,
+      subject: 'Reset your password - Blipyy',
+      html: this.getBaseTemplate('Reset Your Blipyy Password', content),
+      text: `Reset your Blipyy password by visiting: ${resetUrl}`,
       headers: {
         'X-Entity-Ref-ID': `reset-${Date.now()}`,
-        'Message-ID': `<reset-${Date.now()}@tradetally.io>`
+        'Message-ID': `<reset-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -388,7 +388,7 @@ class EmailService {
         Your account has been locked
       </h1>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 28px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        We locked your TradeTally account after several failed sign-in attempts. If this was you, click below to unlock it and try again. If it wasn't, we recommend resetting your password.
+        We locked your Blipyy account after several failed sign-in attempts. If this was you, click below to unlock it and try again. If it wasn't, we recommend resetting your password.
       </p>
 
       <div style="text-align: center; margin: 0 0 28px 0;">
@@ -404,16 +404,16 @@ class EmailService {
 
     let mailOptions = {
       from: {
-        name: 'TradeTally',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       to: email,
-      subject: 'Your account has been locked - TradeTally',
-      html: this.getBaseTemplate('Your TradeTally Account Has Been Locked', content),
-      text: `Your TradeTally account was locked after several failed sign-in attempts. Unlock it by visiting: ${unlockUrl} (link expires in 24 hours). If it has expired, reset your password at ${resetUrl}.`,
+      subject: 'Your account has been locked - Blipyy',
+      html: this.getBaseTemplate('Your Blipyy Account Has Been Locked', content),
+      text: `Your Blipyy account was locked after several failed sign-in attempts. Unlock it by visiting: ${unlockUrl} (link expires in 24 hours). If it has expired, reset your password at ${resetUrl}.`,
       headers: {
         'X-Entity-Ref-ID': `unlock-${Date.now()}`,
-        'Message-ID': `<unlock-${Date.now()}@tradetally.io>`
+        'Message-ID': `<unlock-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -441,7 +441,7 @@ class EmailService {
         Confirm your new email
       </h1>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 28px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        You requested to change the email address on your TradeTally account. Confirm this is your new address.
+        You requested to change the email address on your Blipyy account. Confirm this is your new address.
       </p>
 
       <div style="text-align: center; margin: 0 0 28px 0;">
@@ -457,16 +457,16 @@ class EmailService {
 
     let mailOptions = {
       from: {
-        name: 'TradeTally',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       to: email,
-      subject: 'Confirm your new email - TradeTally',
+      subject: 'Confirm your new email - Blipyy',
       html: this.getBaseTemplate('Verify Your New Email Address', content),
-      text: `Verify your new TradeTally email address by visiting: ${verificationUrl}`,
+      text: `Verify your new Blipyy email address by visiting: ${verificationUrl}`,
       headers: {
         'X-Entity-Ref-ID': `email-change-${Date.now()}`,
-        'Message-ID': `<email-change-${Date.now()}@tradetally.io>`
+        'Message-ID': `<email-change-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -503,7 +503,7 @@ class EmailService {
       </p>
       <p style="color: #52525b; font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         ${isExpired
-          ? 'Your 14-day Pro trial has ended. You can continue using TradeTally on the free plan, or upgrade to keep Pro features like behavioral analytics, price alerts, and enhanced charts.'
+          ? 'Your 14-day Pro trial has ended. You can continue using Blipyy on the free plan, or upgrade to keep Pro features like behavioral analytics, price alerts, and enhanced charts.'
           : `Your Pro trial expires in ${daysRemaining} day${daysRemaining === 1 ? '' : 's'}. Upgrade to keep access to behavioral analytics, price alerts, and enhanced charts.`
         }
       </p>
@@ -525,23 +525,23 @@ class EmailService {
 
     let mailOptions = {
       from: {
-        name: 'TradeTally',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       to: email,
-      subject: `${isExpired ? 'Your Pro trial ended' : `${daysRemaining} day${daysRemaining === 1 ? '' : 's'} left on your trial`} - TradeTally`,
+      subject: `${isExpired ? 'Your Pro trial ended' : `${daysRemaining} day${daysRemaining === 1 ? '' : 's'} left on your trial`} - Blipyy`,
       html: this.getBaseTemplate(
-        `${isExpired ? 'Trial Ended' : 'Trial Expiring'} - TradeTally`,
+        `${isExpired ? 'Trial Ended' : 'Trial Expiring'} - Blipyy`,
         content
       ),
-      text: `${isExpired ? 'Your TradeTally trial has ended.' : `Your TradeTally trial expires in ${daysRemaining} day${daysRemaining === 1 ? '' : 's'}.`} Visit ${pricingUrl} to continue with Pro features.${unsubscribeUrl ? ` Unsubscribe: ${unsubscribeUrl}` : ''}`,
+      text: `${isExpired ? 'Your Blipyy trial has ended.' : `Your Blipyy trial expires in ${daysRemaining} day${daysRemaining === 1 ? '' : 's'}.`} Visit ${pricingUrl} to continue with Pro features.${unsubscribeUrl ? ` Unsubscribe: ${unsubscribeUrl}` : ''}`,
       headers: {
         ...(oneClickUnsubscribeUrl ? {
           'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
           'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
         } : {}),
         'X-Entity-Ref-ID': `trial-${isExpired ? 'expired' : 'reminder'}-${Date.now()}`,
-        'Message-ID': `<trial-${isExpired ? 'expired' : 'reminder'}-${Date.now()}@tradetally.io>`
+        'Message-ID': `<trial-${isExpired ? 'expired' : 'reminder'}-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -572,7 +572,7 @@ class EmailService {
     const url = dashboardUrl || `${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard`;
     const pnlFormatted = totalPnL != null ? `$${Number(totalPnL).toFixed(2)}` : '$0.00';
     const pnlColor = totalPnL >= 0 ? '#16a34a' : '#dc2626';
-    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://tradetally.io'}/settings`;
+    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://blipyy.io'}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
     const safeUsername = escapeHtml(username);
 
@@ -608,16 +608,16 @@ class EmailService {
     html = this.injectTrackingPixel(html, trackingId);
 
     let mailOptions = {
-      from: { name: 'TradeTally', address: process.env.EMAIL_FROM || 'noreply@tradetally.io' },
+      from: { name: 'Blipyy', address: process.env.EMAIL_FROM || 'noreply@blipyy.io' },
       to: email,
-      subject: `${tradeCount} trades this week - TradeTally`,
+      subject: `${tradeCount} trades this week - Blipyy`,
       html,
       text: `Your week: ${tradeCount} trades, P&L ${pnlFormatted}. View dashboard: ${url}. Unsubscribe: ${unsubscribeUrl}`,
       headers: {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `weekly-digest-${Date.now()}`,
-        'Message-ID': `<weekly-digest-${Date.now()}@tradetally.io>`
+        'Message-ID': `<weekly-digest-${Date.now()}@blipyy.io>`
       }
     };
     try {
@@ -648,7 +648,7 @@ class EmailService {
     const userId = user.id;
     const username = user.username || user.full_name || 'there';
     const safeUsername = escapeHtml(username);
-    const frontendUrl = process.env.FRONTEND_URL || 'https://tradetally.io';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://blipyy.io';
     const dashboardUrl = `${frontendUrl}/dashboard`;
     const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${frontendUrl}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
@@ -722,7 +722,7 @@ class EmailService {
     const textSummary = `Your weekly edge report (${report.period_start} to ${report.period_end}). P&L: ${pnlFormatted}. Win rate: ${winRateFormatted}. Edge: ${edgeLabel}. Leak: ${leakLabel}. Action item: ${report.action_item || 'n/a'}.${narrative ? ` ${narrative}` : ''} View dashboard: ${dashboardUrl}. Unsubscribe: ${unsubscribeUrl}`;
 
     const mailOptions = {
-      from: { name: 'TradeTally', address: process.env.EMAIL_FROM || 'noreply@tradetally.io' },
+      from: { name: 'Blipyy', address: process.env.EMAIL_FROM || 'noreply@blipyy.io' },
       to: email,
       subject: 'Your weekly edge report',
       html,
@@ -731,7 +731,7 @@ class EmailService {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `edge-report-${Date.now()}`,
-        'Message-ID': `<edge-report-${Date.now()}@tradetally.io>`
+        'Message-ID': `<edge-report-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -760,7 +760,7 @@ class EmailService {
       return;
     }
     const loginUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/login`;
-    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://tradetally.io'}/settings`;
+    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://blipyy.io'}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
     const safeUsername = escapeHtml(username);
 
@@ -783,16 +783,16 @@ class EmailService {
     html = this.injectTrackingPixel(html, trackingId);
 
     let mailOptions = {
-      from: { name: 'TradeTally', address: process.env.EMAIL_FROM || 'noreply@tradetally.io' },
+      from: { name: 'Blipyy', address: process.env.EMAIL_FROM || 'noreply@blipyy.io' },
       to: email,
-      subject: `Your journal is waiting - TradeTally`,
+      subject: `Your journal is waiting - Blipyy`,
       html,
       text: `You haven't logged in for ${daysInactive} days. Log in: ${loginUrl}. Unsubscribe: ${unsubscribeUrl}`,
       headers: {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `reengagement-${Date.now()}`,
-        'Message-ID': `<reengagement-${Date.now()}@tradetally.io>`
+        'Message-ID': `<reengagement-${Date.now()}@blipyy.io>`
       }
     };
     try {
@@ -820,7 +820,7 @@ class EmailService {
     }
 
     const upgradeUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/settings`;
-    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://tradetally.io'}/settings`;
+    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://blipyy.io'}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
     const safeUsername = escapeHtml(username);
 
@@ -848,21 +848,21 @@ class EmailService {
         greeting = `Hi ${safeUsername}, you tracked ${metrics.totalTrades} trades during your trial — nice start!`;
         bodyText = `With Pro, you'll keep access to detailed analytics, unlimited broker imports${metrics.brokersUsed ? ` (including ${escapeHtml(metrics.brokersUsed)})` : ''}, and everything you need to improve your edge.`;
         ctaText = 'Continue with Pro';
-        subject = 'Your trial insights are waiting — TradeTally';
+        subject = 'Your trial insights are waiting — Blipyy';
         break;
       case 'low':
         headline = 'Pick up where you left off';
         greeting = `Hi ${safeUsername}, you started importing trades during your trial but there's so much more to explore.`;
         bodyText = 'Pro gives you unlimited imports, advanced P&L analytics, win rate tracking, and broker integrations to make journaling effortless.';
         ctaText = 'Explore Pro Features';
-        subject = 'Pick up where you left off — TradeTally';
+        subject = 'Pick up where you left off — Blipyy';
         break;
       default: // never_imported
         headline = 'You haven\'t tried the best part yet';
         greeting = `Hi ${safeUsername}, your Pro trial ended but you haven't imported any trades yet.`;
-        bodyText = 'Import your first trades and see what TradeTally can do — detailed analytics, automatic broker parsing, and insights that help you trade better.';
+        bodyText = 'Import your first trades and see what Blipyy can do — detailed analytics, automatic broker parsing, and insights that help you trade better.';
         ctaText = 'Start Your Pro Journey';
-        subject = 'You haven\'t tried the best part — TradeTally';
+        subject = 'You haven\'t tried the best part — Blipyy';
         break;
     }
 
@@ -930,7 +930,7 @@ class EmailService {
     finalHtml = this.injectTrackingPixel(finalHtml, trackingId);
 
     let mailOptions = {
-      from: { name: 'TradeTally', address: process.env.EMAIL_FROM || 'noreply@tradetally.io' },
+      from: { name: 'Blipyy', address: process.env.EMAIL_FROM || 'noreply@blipyy.io' },
       to: email,
       subject,
       html: finalHtml,
@@ -939,7 +939,7 @@ class EmailService {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `trial-conversion-${Date.now()}`,
-        'Message-ID': `<trial-conversion-${Date.now()}@tradetally.io>`
+        'Message-ID': `<trial-conversion-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -982,7 +982,7 @@ class EmailService {
     }
 
     const dashboardUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard`;
-    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://tradetally.io'}/settings`;
+    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://blipyy.io'}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
     const safeUsername = escapeHtml(username);
     const rawFeatureHighlights = this.getAtRiskFeatureHighlights(metrics);
@@ -995,7 +995,7 @@ class EmailService {
       </ul>
     `;
 
-    const headline = 'You\'re close to getting more from TradeTally';
+    const headline = 'You\'re close to getting more from Blipyy';
     const greeting = `Hi ${safeUsername}, you already put real activity into your journal, and a few of the highest-value workflows may still be untouched.`;
     const bodyText = metrics.lastFeatureUsed
       ? `Your last activity was around ${escapeHtml(metrics.lastFeatureUsed)}. If you come back in for even one short review session, you can turn the trades you've already logged into clearer patterns and better feedback loops.`
@@ -1030,16 +1030,16 @@ class EmailService {
     html = this.injectTrackingPixel(html, trackingId);
 
     let mailOptions = {
-      from: { name: 'TradeTally', address: this.getMarketingFromAddress() },
+      from: { name: 'Blipyy', address: this.getMarketingFromAddress() },
       to: email,
-      subject: 'A few TradeTally features are still waiting for you',
+      subject: 'A few Blipyy features are still waiting for you',
       html,
-      text: `Hi ${username}, a few of TradeTally's highest-value workflows are still waiting for you. Reopen your dashboard here: ${dashboardUrl}. Unsubscribe: ${unsubscribeUrl}`,
+      text: `Hi ${username}, a few of Blipyy's highest-value workflows are still waiting for you. Reopen your dashboard here: ${dashboardUrl}. Unsubscribe: ${unsubscribeUrl}`,
       headers: {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `at-risk-followup-${Date.now()}`,
-        'Message-ID': `<at-risk-followup-${Date.now()}@tradetally.io>`
+        'Message-ID': `<at-risk-followup-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -1062,14 +1062,14 @@ class EmailService {
     }
 
     const importUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/import`;
-    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://tradetally.io'}/settings`;
+    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://blipyy.io'}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
     const safeUsername = escapeHtml(username);
     const hasFailures = (context.recentImportFailures || 0) > 0;
     const headline = hasFailures
-      ? 'Importing trades into TradeTally is easier now'
+      ? 'Importing trades into Blipyy is easier now'
       : 'If importing was the blocker, it\'s worth another try';
-    const greeting = `Hi ${safeUsername}, you signed up for TradeTally but never got a clean import across the finish line.`;
+    const greeting = `Hi ${safeUsername}, you signed up for Blipyy but never got a clean import across the finish line.`;
     const bodyText = hasFailures
       ? 'We\'ve continued improving the parser, broker detection, and import diagnostics. If earlier CSV attempts failed or produced empty results, the import flow is in a better place now.'
       : 'We\'ve kept improving the import flow with better parser coverage, clearer diagnostics, and more resilient broker handling, so getting your first data set in should take less work.';
@@ -1106,16 +1106,16 @@ class EmailService {
     html = this.injectTrackingPixel(html, trackingId);
 
     let mailOptions = {
-      from: { name: 'TradeTally', address: this.getMarketingFromAddress() },
+      from: { name: 'Blipyy', address: this.getMarketingFromAddress() },
       to: email,
       subject: 'Trade import updates you may have missed',
       html,
-      text: `Hi ${username}, if importing was the blocker, TradeTally's import flow is worth another try. Start here: ${importUrl}. Unsubscribe: ${unsubscribeUrl}`,
+      text: `Hi ${username}, if importing was the blocker, Blipyy's import flow is worth another try. Start here: ${importUrl}. Unsubscribe: ${unsubscribeUrl}`,
       headers: {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `churned-no-imports-${Date.now()}`,
-        'Message-ID': `<churned-no-imports-${Date.now()}@tradetally.io>`
+        'Message-ID': `<churned-no-imports-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -1144,7 +1144,7 @@ class EmailService {
       return;
     }
 
-    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://tradetally.io'}/settings`;
+    const unsubscribeUrl = userId ? this.getUnsubscribeUrl(userId) : `${process.env.FRONTEND_URL || 'https://blipyy.io'}/settings`;
     const oneClickUnsubscribeUrl = userId ? this.getOneClickUnsubscribeUrl(userId) : unsubscribeUrl;
     const safeUsername = escapeHtml(username);
     const footer = this.getMarketingFooter(unsubscribeUrl);
@@ -1165,13 +1165,13 @@ class EmailService {
           Hi ${safeUsername},
         </p>
         <p style="color: #52525b; font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-          You've been on TradeTally Pro for about a month now, so I wanted to check in.
+          You've been on Blipyy Pro for about a month now, so I wanted to check in.
         </p>
         <p style="color: #18181b; font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
           How's it been for you so far?
         </p>
         <p style="color: #52525b; font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-          If TradeTally has been helpful, I'd love if you left a short review here:
+          If Blipyy has been helpful, I'd love if you left a short review here:
         </p>
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 0 auto 8px auto; border-collapse: separate;">
           <tr>
@@ -1189,7 +1189,7 @@ class EmailService {
         <p style="color: #52525b; font-size: 15px; line-height: 1.6; margin: 0 0 4px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
           Thanks,<br>
           Brennon<br>
-          <span style="color: #a1a1aa;">TradeTally</span>
+          <span style="color: #a1a1aa;">Blipyy</span>
         </p>
         ${footer}
       `;
@@ -1197,21 +1197,21 @@ class EmailService {
 
     // Record email engagement and inject tracking
     const trackingId = userId ? await this.recordEmailEngagement(userId, 'review_request') : null;
-    let html = this.getBaseTemplate('How\'s TradeTally Pro?', content);
+    let html = this.getBaseTemplate('How\'s Blipyy Pro?', content);
     html = this.injectTrackingPixel(html, trackingId);
 
     let mailOptions = {
-      from: { name: 'Brennon from TradeTally', address: process.env.EMAIL_FROM || 'noreply@tradetally.io' },
-      replyTo: process.env.SUPPORT_EMAIL || 'support@tradetally.io',
+      from: { name: 'Brennon from Blipyy', address: process.env.EMAIL_FROM || 'noreply@blipyy.io' },
+      replyTo: process.env.SUPPORT_EMAIL || 'support@blipyy.io',
       to: email,
-      subject: 'How\'s TradeTally Pro been for you?',
+      subject: 'How\'s Blipyy Pro been for you?',
       html,
-      text: `Hi ${username}, you've been on TradeTally Pro for about a month now, so I wanted to check in. How's it been for you so far? If TradeTally has been helpful, I'd love if you left a short review here: ${reviewUrl}. Even a sentence or two goes a long way. If you have feedback, feature requests, or anything that feels missing, just reply to this email. I read every response. Thanks, Brennon. Unsubscribe: ${unsubscribeUrl}`,
+      text: `Hi ${username}, you've been on Blipyy Pro for about a month now, so I wanted to check in. How's it been for you so far? If Blipyy has been helpful, I'd love if you left a short review here: ${reviewUrl}. Even a sentence or two goes a long way. If you have feedback, feature requests, or anything that feels missing, just reply to this email. I read every response. Thanks, Brennon. Unsubscribe: ${unsubscribeUrl}`,
       headers: {
         'List-Unsubscribe': `<${oneClickUnsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
         'X-Entity-Ref-ID': `review-request-${Date.now()}`,
-        'Message-ID': `<review-request-${Date.now()}@tradetally.io>`
+        'Message-ID': `<review-request-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -1240,13 +1240,13 @@ class EmailService {
     }
 
     const dashboardUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard`;
-    const supportEmail = process.env.SUPPORT_EMAIL || 'support@tradetally.io';
+    const supportEmail = process.env.SUPPORT_EMAIL || 'support@blipyy.io';
     const safeUsername = escapeHtml(username);
     const safePlanName = escapeHtml(planName || 'Pro');
 
     const content = `
       <h1 style="color: #18181b; font-size: 22px; margin: 0 0 8px 0; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        Welcome to TradeTally Pro
+        Welcome to Blipyy Pro
       </h1>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         Hi ${safeUsername},
@@ -1291,16 +1291,16 @@ class EmailService {
 
     let mailOptions = {
       from: {
-        name: 'TradeTally',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       to: email,
-      subject: 'Welcome to TradeTally Pro',
-      html: this.getBaseTemplate('Welcome to TradeTally Pro', content),
+      subject: 'Welcome to Blipyy Pro',
+      html: this.getBaseTemplate('Welcome to Blipyy Pro', content),
       text: `Hi ${username}, thank you for subscribing to ${planName || 'Pro'}. All Pro features are now unlocked. As a Pro subscriber, you get priority service for any issues or feature requests — reach out anytime at ${supportEmail}. Manage your subscription at Settings > Billing. Go to your dashboard: ${dashboardUrl}`,
       headers: {
         'X-Entity-Ref-ID': `subscription-welcome-${Date.now()}`,
-        'Message-ID': `<subscription-welcome-${Date.now()}@tradetally.io>`
+        'Message-ID': `<subscription-welcome-${Date.now()}@blipyy.io>`
       }
     };
 
@@ -1340,8 +1340,8 @@ class EmailService {
     // Send as raw HTML so the inline `<br>` line breaks render correctly.
     const mailOptions = {
       from: {
-        name: 'TradeTally Support',
-        address: process.env.EMAIL_FROM || 'noreply@tradetally.io'
+        name: 'Blipyy Support',
+        address: process.env.EMAIL_FROM || 'noreply@blipyy.io'
       },
       replyTo: userEmail,
       to: to,

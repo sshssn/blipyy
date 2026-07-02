@@ -4,7 +4,7 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow px-8 py-10">
                 <h1 class="heading-page mb-8">Privacy Policy</h1>
                 <p class="text-gray-700 dark:text-gray-300 mb-6">
-                    This policy explains how TradeTally handles data for our free trading journal and investment tracker, including cloud-hosted and self-hosted usage.
+                    This policy explains how Blipyy handles data for our free trading journal and investment tracker, including cloud-hosted and self-hosted usage.
                     You can also review our
                     <router-link to="/features" class="text-primary-600 dark:text-primary-400 hover:underline">features</router-link>,
                     <router-link to="/pricing" class="text-primary-600 dark:text-primary-400 hover:underline">pricing</router-link>,
@@ -25,7 +25,7 @@
                             1. Introduction
                         </h2>
                         <p class="text-gray-700 dark:text-gray-300 mb-4">
-                            Welcome to TradeTally ("we," "our," or "us"). We are
+                            Welcome to Blipyy ("we," "our," or "us"). We are
                             committed to protecting your personal information
                             and your right to privacy. This Privacy Policy
                             explains how we collect, use, disclose, and
@@ -33,7 +33,7 @@
                             journal application.
                         </p>
                         <p class="text-gray-700 dark:text-gray-300">
-                            By using TradeTally, you agree to the collection and
+                            By using Blipyy, you agree to the collection and
                             use of information in accordance with this policy.
                         </p>
                     </section>
@@ -292,7 +292,7 @@
                         </ul>
                         <p class="text-gray-700 dark:text-gray-300">
                             To exercise these rights, please contact us at
-                            support@tradetally.io.
+                            support@blipyy.io.
                         </p>
                     </section>
 
@@ -434,19 +434,19 @@
                             <p>
                                 Email:
                                 <a
-                                    href="mailto:support@tradetally.io"
+                                    href="mailto:support@blipyy.io"
                                     class="text-primary-600 dark:text-primary-400 hover:underline"
-                                    >support@tradetally.io</a
+                                    >support@blipyy.io</a
                                 >
                             </p>
                             <p>
                                 GitHub:
                                 <a
-                                    href="https://github.com/GeneBO98/tradetally"
+                                    href="https://github.com/GeneBO98/blipyy"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     class="text-primary-600 dark:text-primary-400 hover:underline"
-                                    >https://github.com/GeneBO98/tradetally</a
+                                    >https://github.com/GeneBO98/blipyy</a
                                 >
                             </p>
                         </div>
@@ -470,7 +470,7 @@ const lastUpdated = computed(() => {
 });
 
 onMounted(() => {
-    document.title = "Privacy Policy | TradeTally";
+    document.title = "Privacy Policy | Blipyy";
 
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {
@@ -480,7 +480,7 @@ onMounted(() => {
     }
     metaDescription.setAttribute(
         "content",
-        "Read the TradeTally privacy policy to understand how we collect, use, and protect data on our trading journal platform."
+        "Read the Blipyy privacy policy to understand how we collect, use, and protect data on our trading journal platform."
     );
 
     let metaKeywords = document.querySelector('meta[name="keywords"]');
@@ -491,7 +491,7 @@ onMounted(() => {
     }
     metaKeywords.setAttribute(
         "content",
-        "TradeTally privacy policy, trading journal privacy, data protection, user data rights"
+        "Blipyy privacy policy, trading journal privacy, data protection, user data rights"
     );
 
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -500,6 +500,6 @@ onMounted(() => {
         canonical.setAttribute("rel", "canonical");
         document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", "https://tradetally.io/privacy");
+    canonical.setAttribute("href", "https://blipyy.io/privacy");
 });
 </script>

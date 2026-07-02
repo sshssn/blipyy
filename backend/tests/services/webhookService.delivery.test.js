@@ -58,7 +58,7 @@ describe('webhookService delivery formatting', () => {
 
     expect(requestBody.text).toContain('Price alert triggered');
     expect(requestBody.blocks[0].text.text).toContain('AAPL');
-    expect(fetchOptions.headers['X-TradeTally-Event']).toBe('price_alert.triggered');
+    expect(fetchOptions.headers['X-Blipyy-Event']).toBe('price_alert.triggered');
 
     expect(WebhookSubscription.recordDelivery).toHaveBeenCalledWith(
       expect.objectContaining({

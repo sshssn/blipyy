@@ -4,7 +4,7 @@ const invoiceNinjaSyncService = require('./invoiceNinjaSyncService');
 
 /**
  * CRM Sync Scheduler
- * Periodically syncs TradeTally user/billing data to Twenty CRM and Invoice Ninja.
+ * Periodically syncs Blipyy user/billing data to Twenty CRM and Invoice Ninja.
  * Controlled by ENABLE_CRM_SYNC env var and CRM_SYNC_CRON for interval.
  */
 class CrmSyncScheduler {

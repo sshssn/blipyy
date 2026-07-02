@@ -127,5 +127,5 @@ CREATE TRIGGER update_plaid_transactions_updated_at
     EXECUTE FUNCTION update_updated_at_column();
 
 COMMENT ON TABLE plaid_connections IS 'Stores encrypted Plaid Items and sync configuration for funding sync';
-COMMENT ON TABLE plaid_accounts IS 'Stores Plaid accounts discovered under a connected Item and their mapping to TradeTally accounts';
+COMMENT ON TABLE plaid_accounts IS 'Stores Plaid accounts discovered under a connected Item and their mapping to Blipyy accounts';
 COMMENT ON TABLE plaid_transactions IS 'Stores synced Plaid candidate funding transactions and their review/import state';

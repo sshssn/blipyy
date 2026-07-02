@@ -35,11 +35,11 @@
         class="flex min-w-0 flex-1 items-center gap-2.5"
         :class="{ 'flex-none justify-center': isCollapsed }"
       >
-        <img src="/favicon.svg" alt="TradeTally" class="h-8 w-auto shrink-0" />
+        <img src="/favicon.svg" alt="Blipyy" class="h-8 w-auto shrink-0" />
         <div v-if="!isCollapsed" class="min-w-0 flex-1">
-          <div class="truncate text-sm font-semibold text-gray-900 dark:text-white">TradeTally</div>
+          <div class="truncate text-sm font-semibold text-gray-900 dark:text-white">Blipyy</div>
           <div class="truncate text-xs text-gray-500 dark:text-gray-500">
-            Trading Journal
+            Trading OS
           </div>
         </div>
       </router-link>
@@ -442,7 +442,11 @@ import {
   CodeBracketSquareIcon,
   BellAlertIcon,
   SunIcon,
-  MoonIcon
+  MoonIcon,
+  SparklesIcon,
+  BoltIcon,
+  ExclamationTriangleIcon,
+  ChartBarIcon
 } from '@heroicons/vue/24/outline'
 
 import GlobalAccountSelector from '@/components/layout/GlobalAccountSelector.vue'
@@ -487,48 +491,46 @@ const apiDocsUrl = computed(() => {
 const navItems = computed(() => {
   const items = [
     {
-      name: 'Dashboard',
+      name: 'Overview',
       icon: HomeIcon,
       items: [
         { name: 'Trading Dashboard', to: '/dashboard', route: 'dashboard' },
-        { name: 'Trading Journal', to: '/diary', route: 'diary' },
-        { name: 'Account & Cashflow', to: '/cashflow', route: 'cashflow' },
-        { name: 'Leaderboard', to: '/leaderboard', route: 'leaderboard' },
-        { name: 'Public Trades', to: '/public', route: 'public-trades' },
-        { name: 'Community Forum', href: 'https://tradetally.io/forum', external: true }
+        { name: 'Market Brief', to: '/market-brief', route: 'market-brief' },
+        { name: 'SOL Dashboard', to: '/sol', route: 'sol-dashboard' },
+        { name: 'Weekly Review', to: '/weekly-review', route: 'weekly-review' },
+        { name: 'Monthly Review', to: '/monthly-review', route: 'monthly-review' }
       ]
     },
-    { name: 'Trades', icon: ChartBarSquareIcon, to: '/trades', route: 'trades' },
+    { name: 'New Trade', icon: ChartBarSquareIcon, to: '/trades/new', route: 'trade-create' },
+    { name: 'Trade History', icon: PresentationChartLineIcon, to: '/trades', route: 'trades' },
     {
-      name: 'Metrics',
-      icon: PresentationChartLineIcon,
-      items: [
-        { name: 'Performance', to: '/metrics', route: 'metrics' },
-        { name: 'Monthly', to: '/metrics/monthly', route: 'monthly-performance' },
-        { name: 'Edge Report', to: '/metrics/edge-report', route: 'edge-report' },
-        { name: 'Partial Exits', to: '/metrics/partial-exits', route: 'partial-exit-analytics', badge: 'pro' },
-        { name: 'Behavioral', to: '/metrics/behavioral', route: 'behavioral-analytics', badge: 'pro' },
-        { name: 'Health', to: '/metrics/health', route: 'health-analytics', badge: 'pro' }
-      ]
-    },
-    {
-      name: 'Analysis',
+      name: 'AI Tools',
       icon: BeakerIcon,
       items: [
-        { name: 'Investments', to: '/analysis', route: 'analysis', badge: 'pro' },
-        { name: 'Watchlists', to: '/markets', route: 'markets', badge: 'pro' },
-        { name: 'Trade Management', to: '/analysis/trade-management', route: 'trade-management', badge: 'pro' },
-        { name: 'Playbooks & Grading', to: '/analysis/playbooks', route: 'playbooks', badge: 'pro' },
-        { name: 'Prop Firm', to: '/analysis/prop-firm', route: 'prop-firm' }
+        { name: 'AI Pre-Trade Analysis', to: '/ai/pre-trade', route: 'ai-pre-trade' },
+        { name: 'AI Post-Trade Review', to: '/ai/post-trade', route: 'ai-post-trade' },
+        { name: 'AI Coach', to: '/ai/coach', route: 'ai-coach' }
       ]
     },
-    { name: 'Calendar', icon: CalendarIcon, to: '/calendar', route: 'calendar' },
     {
-      name: 'Import',
-      icon: ArrowUpTrayIcon,
+      name: 'Analytics',
+      icon: PresentationChartLineIcon,
       items: [
+        { name: 'Performance Metrics', to: '/metrics', route: 'metrics' },
+        { name: 'Edge Report', to: '/metrics/edge-report', route: 'edge-report' },
+        { name: 'Behavioral', to: '/metrics/behavioral', route: 'behavioral-analytics', badge: 'pro' },
+        { name: 'Signal Engine', to: '/signals', route: 'signal-engine' },
+        { name: 'Rule Engine', to: '/rules', route: 'rule-engine' }
+      ]
+    },
+    {
+      name: 'Tools',
+      icon: Cog6ToothIcon,
+      items: [
+        { name: 'Calendar', to: '/calendar', route: 'calendar' },
         { name: 'CSV Import', to: '/import', route: 'import' },
-        { name: 'Broker Sync', to: '/broker-sync', route: 'broker-sync' }
+        { name: 'Broker Sync', to: '/broker-sync', route: 'broker-sync' },
+        { name: 'Leaderboard', to: '/leaderboard', route: 'leaderboard' }
       ]
     }
   ]

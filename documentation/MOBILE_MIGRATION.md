@@ -1,6 +1,6 @@
-# TradeTally Mobile Support Migration Guide
+# Blipyy Mobile Support Migration Guide
 
-This guide explains how to upgrade your existing TradeTally deployment to support mobile applications with both cloud and self-hosted options.
+This guide explains how to upgrade your existing Blipyy deployment to support mobile applications with both cloud and self-hosted options.
 
 ## Overview
 
@@ -20,15 +20,15 @@ The mobile support upgrade adds:
 For existing Docker deployments, use the automated migration script:
 
 ```bash
-# Navigate to your TradeTally directory
-cd /path/to/your/tradetally
+# Navigate to your Blipyy directory
+cd /path/to/your/blipyy
 
 # Run the migration script
 ./scripts/migrate-existing-deployment.sh
 ```
 
 This script will:
-1. [SEARCH] Detect your running TradeTally containers
+1. [SEARCH] Detect your running Blipyy containers
 2. [BACKUP] Create a database backup
 3. [SYNC] Run all necessary database migrations
 4. [EDIT] Update Docker configuration
@@ -41,19 +41,19 @@ If you prefer manual control or have a custom setup:
 #### Step 1: Backup Your Database
 ```bash
 # Create a backup
-docker exec tradetally-db pg_dump -U trader -d tradetally > backup_$(date +%Y%m%d).sql
+docker exec blipyy-db pg_dump -U trader -d blipyy > backup_$(date +%Y%m%d).sql
 ```
 
 #### Step 2: Run Database Migrations
 ```bash
 # Copy the migration script to your container
-docker cp backend/src/utils/migrate.js tradetally-app:/app/backend/src/utils/
+docker cp backend/src/utils/migrate.js blipyy-app:/app/backend/src/utils/
 
 # Copy migration files
-docker cp backend/migrations/ tradetally-app:/app/backend/
+docker cp backend/migrations/ blipyy-app:/app/backend/
 
 # Run migrations
-docker exec tradetally-app node /app/backend/src/utils/migrate.js
+docker exec blipyy-app node /app/backend/src/utils/migrate.js
 ```
 
 #### Step 3: Update Environment Variables
@@ -61,7 +61,7 @@ Add these variables to your `.env` file:
 
 ```env
 # Instance Configuration
-INSTANCE_NAME=TradeTally
+INSTANCE_NAME=Blipyy
 INSTANCE_URL=https://your-domain.com
 
 # Mobile Authentication
@@ -82,7 +82,7 @@ MAX_DEVICES_PER_USER=10
 
 #### Step 4: Restart Services
 ```bash
-# Restart your TradeTally containers
+# Restart your Blipyy containers
 docker-compose restart
 ```
 
@@ -125,7 +125,7 @@ After migration, these new endpoints are available:
 ### Server Discovery
 ```http
 GET /api/v1/server/info
-GET /.well-known/tradetally-config.json
+GET /.well-known/blipyy-config.json
 ```
 
 ### Enhanced Authentication
@@ -154,11 +154,11 @@ POST /api/v1/sync/delta      # Incremental sync
 
 All self-hosted deployments use the same configuration:
 ```env
-INSTANCE_NAME=TradeTally
+INSTANCE_NAME=Blipyy
 INSTANCE_URL=https://your-domain.com
 ```
 
-The mobile app will automatically detect if it's connecting to `tradetally.io` (cloud) or a self-hosted instance based on the domain.
+The mobile app will automatically detect if it's connecting to `blipyy.io` (cloud) or a self-hosted instance based on the domain.
 
 ### Mobile Features
 
@@ -188,7 +188,7 @@ REQUIRE_HTTPS=true           # Force HTTPS
 Mobile apps can discover your server configuration:
 
 1. **Manual Entry**: User enters `https://your-domain.com`
-2. **Auto-Discovery**: App fetches `/.well-known/tradetally-config.json`
+2. **Auto-Discovery**: App fetches `/.well-known/blipyy-config.json`
 3. **Configuration**: App configures API endpoints and features
 
 ### Authentication Flow
@@ -211,7 +211,7 @@ After migration, verify the setup:
 
 ### 1. Check Database Tables
 ```bash
-docker exec tradetally-db psql -U trader -d tradetally -c "\dt"
+docker exec blipyy-db psql -U trader -d blipyy -c "\dt"
 ```
 
 Should show the new tables: `devices`, `refresh_tokens`, `sync_metadata`, `instance_config`
@@ -222,12 +222,12 @@ Should show the new tables: `devices`, `refresh_tokens`, `sync_metadata`, `insta
 curl https://your-domain.com/api/v1/server/info
 
 # Test well-known config
-curl https://your-domain.com/.well-known/tradetally-config.json
+curl https://your-domain.com/.well-known/blipyy-config.json
 ```
 
 ### 3. Check Migration Status
 ```bash
-docker exec tradetally-app node /app/backend/src/utils/migrate.js
+docker exec blipyy-app node /app/backend/src/utils/migrate.js
 ```
 
 Should show "0 migration(s) applied" if all migrations are current.
@@ -237,7 +237,7 @@ Should show "0 migration(s) applied" if all migrations are current.
 ### Migration Fails
 1. Check database connection
 2. Verify container names match your setup
-3. Check logs: `docker logs tradetally-app`
+3. Check logs: `docker logs blipyy-app`
 4. Restore from backup if needed
 
 ### API Not Responding
@@ -263,7 +263,7 @@ If you need to rollback:
 
 2. **Restore database**:
    ```bash
-   docker exec -i tradetally-db psql -U trader -d tradetally < your_backup.sql
+   docker exec -i blipyy-db psql -U trader -d blipyy < your_backup.sql
    ```
 
 3. **Revert code**:

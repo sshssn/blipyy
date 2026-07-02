@@ -5,7 +5,7 @@
 # Enable once per clone (do this on dev machines AND the prod server):
 #   git config core.hooksPath githooks
 #
-# Pushes to the cloud repo (tradetally-cloud) are never blocked — cloud-only
+# Pushes to the cloud repo (blipyy-cloud) are never blocked — cloud-only
 # files belong there. Only pushes whose remote URL is the public repo are
 # checked.
 set -euo pipefail
@@ -14,8 +14,8 @@ remote_name="${1:-}"
 remote_url="${2:-}"
 
 case "$remote_url" in
-  *tradetally-cloud*) exit 0 ;;                         # cloud repo — allowed
-  *GeneBO98/tradetally*|*tradetally.git*) ;;            # public repo — enforce
+  *blipyy-cloud*) exit 0 ;;                         # cloud repo — allowed
+  *GeneBO98/blipyy*|*blipyy.git*) ;;            # public repo — enforce
   *) exit 0 ;;                                          # unknown remote — don't block
 esac
 

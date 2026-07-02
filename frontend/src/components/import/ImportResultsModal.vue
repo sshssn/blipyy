@@ -251,7 +251,7 @@
                 </p>
                 <div class="mt-3 flex flex-col sm:flex-row gap-2">
                   <a
-                    href="https://tradetally.io/docs/usage/importing-trades/#supported-brokers"
+                    href="https://blipyy.io/docs/usage/importing-trades/#supported-brokers"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium text-primary-700 dark:text-primary-300 bg-white dark:bg-gray-800 border border-primary-300 dark:border-primary-600 rounded-md hover:bg-primary-50 dark:hover:bg-primary-900/30"
@@ -551,7 +551,7 @@ const zeroTradeReason = computed(() => {
 
   if (!props.diagnostics?.detectedBroker && props.selectedBroker === 'auto') {
     return {
-      title: 'TradeTally could not recognize this export layout.',
+      title: 'Blipyy could not recognize this export layout.',
       body: 'The fastest path is to map the core columns or choose your broker manually before uploading.',
       steps: [
         'Try selecting your broker instead of Auto-Detect.',
@@ -563,7 +563,7 @@ const zeroTradeReason = computed(() => {
 
   return {
     title: 'No importable trades were found.',
-    body: 'The file uploaded successfully, but it did not contain rows TradeTally could turn into trades.',
+    body: 'The file uploaded successfully, but it did not contain rows Blipyy could turn into trades.',
     steps: [
       'Confirm the CSV contains actual trade rows.',
       'Try Auto-Detect if you selected a specific broker.',
@@ -593,6 +593,6 @@ const supportMailtoLink = computed(() => {
     `Please describe the issue:\n\n`
   )
 
-  return `mailto:support@tradetally.io?subject=${subject}&body=${body}`
+  return `mailto:support@blipyy.io?subject=${subject}&body=${body}`
 })
 </script>

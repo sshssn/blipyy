@@ -40,10 +40,10 @@ const serverController = {
 
       res.json({
         server: {
-          name: flat.instance_name || 'TradeTally',
+          name: flat.instance_name || 'Blipyy',
           version: 'v1',
           url: instanceUrl,
-          isCloud: req.get('host')?.includes('tradetally.io') || false,
+          isCloud: req.get('host')?.includes('blipyy.io') || false,
           timestamp: new Date().toISOString()
         },
         api: {
@@ -230,9 +230,9 @@ const serverController = {
       const origin = `${req.protocol}://${req.get('host')}`;
       const instanceUrl = process.env.INSTANCE_URL || flat.instance_url || origin;
 
-      const isCloud = req.get('host')?.includes('tradetally.io') || false;
+      const isCloud = req.get('host')?.includes('blipyy.io') || false;
       const features = getPublicFeatures();
-      const instanceName = flat.instance_name || 'TradeTally';
+      const instanceName = flat.instance_name || 'Blipyy';
 
       res.json({
         name: instanceName,

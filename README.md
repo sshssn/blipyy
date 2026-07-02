@@ -1,8 +1,8 @@
-# TradeTally - Trading Journal & Analytics Platform
+# Blipyy - Trading Journal & Analytics Platform
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/potentialmidas/tradetally)](https://hub.docker.com/r/potentialmidas/tradetally)
-[![License](https://img.shields.io/github/license/GeneBO98/tradetally)](https://github.com/GeneBO98/tradetally/blob/main/LICENSE)
-[![GitHub Release](https://img.shields.io/github/v/release/GeneBO98/tradetally)](https://github.com/GeneBO98/tradetally/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/potentialmidas/blipyy)](https://hub.docker.com/r/potentialmidas/blipyy)
+[![License](https://img.shields.io/github/license/GeneBO98/blipyy)](https://github.com/GeneBO98/blipyy/blob/main/LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/GeneBO98/blipyy)](https://github.com/GeneBO98/blipyy/releases)
 
 **Dominate With Data**
 
@@ -12,11 +12,11 @@ A comprehensive trading journal and analytics platform built with Vue.js fronten
 
 ## Quick Links
 
-- **Live Demo**: [tradetally.io](https://tradetally.io)
-- **Documentation**: [docs.tradetally.io](https://docs.tradetally.io)
-- **Forum**: [forum.tradetally.io](https://forum.tradetally.io)
-- **iOS App**: [Download Here](https://apps.apple.com/us/app/tradetally/id6748022992)
-- **Docker Hub**: [potentialmidas/tradetally](https://hub.docker.com/r/potentialmidas/tradetally)
+- **Live Demo**: [blipyy.io](https://blipyy.io)
+- **Documentation**: [docs.blipyy.io](https://docs.blipyy.io)
+- **Forum**: [forum.blipyy.io](https://forum.blipyy.io)
+- **iOS App**: [Download Here](https://apps.apple.com/us/app/blipyy/id6748022992)
+- **Docker Hub**: [potentialmidas/blipyy](https://hub.docker.com/r/potentialmidas/blipyy)
 
 ### Demo Account
 - **Username**: demo@example.com
@@ -46,7 +46,7 @@ A comprehensive trading journal and analytics platform built with Vue.js fronten
 - **Leaderboards** - Track achievements and compete with peers
 - **Public Trades** - Share trades and learn from the community
 - **Achievements System** - Unlock badges and track milestones
-- **Forum Integration** - Join discussions at [forum.tradetally.io](https://forum.tradetally.io)
+- **Forum Integration** - Join discussions at [forum.blipyy.io](https://forum.blipyy.io)
 
 ### Mobile App
 - **iOS App** - Native iOS application available in app store
@@ -57,7 +57,7 @@ A comprehensive trading journal and analytics platform built with Vue.js fronten
 ## Deployment Options
 
 ### SaaS Platform
-Fully hosted solution at [tradetally.io](https://tradetally.io)
+Fully hosted solution at [blipyy.io](https://blipyy.io)
 
 ### Self-Hosted
 Free, open-source deployment with all Pro features included. Perfect for:
@@ -77,11 +77,11 @@ Free, open-source deployment with all Pro features included. Perfect for:
 
 ## Getting Started
 
-For detailed installation and setup instructions, visit the [documentation site](https://docs.tradetally.io).
+For detailed installation and setup instructions, visit the [documentation site](https://docs.blipyy.io).
 
 ### Local Development
 
-TradeTally uses pnpm for dependency management. Install pnpm, then install dependencies from the repository root:
+Blipyy uses pnpm for dependency management. Install pnpm, then install dependencies from the repository root:
 
 ```bash
 npm install -g pnpm@10.13.1
@@ -93,28 +93,28 @@ pnpm --dir frontend run dev
 ### Quick Start with Docker
 
 ```bash
-docker pull potentialmidas/tradetally:latest
-docker run -d -p 80:80 potentialmidas/tradetally:latest
+docker pull potentialmidas/blipyy:latest
+docker run -d -p 80:80 potentialmidas/blipyy:latest
 ```
 
-See the [Docker Deployment Guide](https://docs.tradetally.io/deployment/docker/) for production setup.
+See the [Docker Deployment Guide](https://docs.blipyy.io/deployment/docker/) for production setup.
 
 ## Documentation
 
-Comprehensive documentation is available at [docs.tradetally.io](https://docs.tradetally.io):
+Comprehensive documentation is available at [docs.blipyy.io](https://docs.blipyy.io):
 
-- [Installation Guide](https://docs.tradetally.io/getting-started/installation/)
-- [Quick Start](https://docs.tradetally.io/getting-started/quick-start/)
-- [API Configuration](https://docs.tradetally.io/getting-started/api-keys/)
-- [Docker Deployment](https://docs.tradetally.io/deployment/docker/)
-- [Importing Trades](https://docs.tradetally.io/usage/importing-trades/)
-- [Feature Guides](https://docs.tradetally.io/features/)
+- [Installation Guide](https://docs.blipyy.io/getting-started/installation/)
+- [Quick Start](https://docs.blipyy.io/getting-started/quick-start/)
+- [API Configuration](https://docs.blipyy.io/getting-started/api-keys/)
+- [Docker Deployment](https://docs.blipyy.io/deployment/docker/)
+- [Importing Trades](https://docs.blipyy.io/usage/importing-trades/)
+- [Feature Guides](https://docs.blipyy.io/features/)
 
 ## Community & Support
 
-- **Forum**: Join the [TradeTally Discourse](https://forum.tradetally.io) - If you have a TradeTally.io account, you can login with those credentials
+- **Forum**: Join the [Blipyy Discourse](https://forum.blipyy.io) - If you have a Blipyy.io account, you can login with those credentials
 - **GitHub Issues**: Report bugs or request features
-- **Documentation**: [docs.tradetally.io](https://docs.tradetally.io)
+- **Documentation**: [docs.blipyy.io](https://docs.blipyy.io)
 - **iOS TestFlight**: [Join the beta](https://testflight.apple.com/join/11shUY3t)
 
 ## Screenshots
@@ -131,11 +131,11 @@ Comprehensive documentation is available at [docs.tradetally.io](https://docs.tr
 
 ## Star History
 
-<a href="https://star-history.com/#GeneBO98/tradetally&Date">
+<a href="https://star-history.com/#GeneBO98/blipyy&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=GeneBO98/tradetally&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=GeneBO98/tradetally&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=GeneBO98/tradetally&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=GeneBO98/blipyy&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=GeneBO98/blipyy&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=GeneBO98/blipyy&type=Date" />
  </picture>
 </a>
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# TradeTally Native Update Script
+# Blipyy Native Update Script
 # Usage: ./update-native.sh
 
 set -Eeuo pipefail
@@ -10,7 +10,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
 PNPM_CMD=(corepack pnpm)
-PM2_APP_NAME="tradetally"
+PM2_APP_NAME="blipyy"
 PM2_ECOSYSTEM="$REPO_ROOT/scripts/ecosystem.config.js"
 CURRENT_STEP="initializing"
 STASHED=0
@@ -25,7 +25,7 @@ fail() {
   local subject="$1"
   local body="$2"
   log "ERROR: $subject"
-  send_failure_email "[TradeTally] Update failed - $subject" "$body"
+  send_failure_email "[Blipyy] Update failed - $subject" "$body"
   exit 1
 }
 
@@ -101,7 +101,7 @@ async function main() {
   });
 
   await transporter.sendMail({
-    from: process.env.EMAIL_FROM || process.env.EMAIL_USER || 'noreply@tradetally.io',
+    from: process.env.EMAIL_FROM || process.env.EMAIL_USER || 'noreply@blipyy.io',
     to: process.env.ADMIN_EMAIL,
     subject: process.env.UPDATE_MAIL_SUBJECT,
     text: process.env.UPDATE_MAIL_BODY
@@ -135,7 +135,7 @@ restore_stash() {
 handle_unexpected_error() {
   local line="$1"
   local exit_code="${2:-1}"
-  local body="The TradeTally native update script failed unexpectedly on $(hostname) at $(date -u).
+  local body="The Blipyy native update script failed unexpectedly on $(hostname) at $(date -u).
 
 Step: $CURRENT_STEP
 Line: $line
@@ -144,7 +144,7 @@ Exit code: $exit_code
 Check the deployment logs on the host and resolve the issue manually if the automated recovery path did not complete."
 
   log "ERROR: Unexpected failure during '$CURRENT_STEP' at line $line (exit $exit_code)."
-  send_failure_email "[TradeTally] Update failed - unexpected script error" "$body"
+  send_failure_email "[Blipyy] Update failed - unexpected script error" "$body"
   exit "$exit_code"
 }
 
@@ -168,7 +168,7 @@ require_prerequisites() {
   if [ "${#missing[@]}" -gt 0 ]; then
     fail \
       "missing prerequisites" \
-      "The TradeTally native update script cannot run on $(hostname) at $(date -u) because required commands are missing:
+      "The Blipyy native update script cannot run on $(hostname) at $(date -u) because required commands are missing:
 
 ${missing[*]}
 
@@ -185,7 +185,7 @@ ensure_pnpm() {
   corepack enable
   "${PNPM_CMD[@]}" --version >/dev/null 2>&1 || fail \
     "pnpm unavailable" \
-    "The TradeTally native update script could not activate pnpm via corepack on $(hostname) at $(date -u)."
+    "The Blipyy native update script could not activate pnpm via corepack on $(hostname) at $(date -u)."
 }
 
 require_clean_git_state() {
@@ -234,7 +234,7 @@ stash_local_changes_if_needed() {
   log "Local changes detected. Stashing before repository sync"
   git stash push -u -m "$stash_name" -- . ':(exclude)scripts/update-native.sh' ':(exclude).gitignore' ':(exclude).cloud-push-worktree' >/dev/null 2>&1 || fail \
     "could not stash local changes" \
-    "The TradeTally native update script found local changes on $(hostname) at $(date -u), but could not stash them before syncing the repository."
+    "The Blipyy native update script found local changes on $(hostname) at $(date -u), but could not stash them before syncing the repository."
 
   STASH_REF="$(git stash list | awk -F: -v target="$stash_name" '$0 ~ target { print $1; exit }')"
 
@@ -252,14 +252,14 @@ sync_current_branch() {
   if [ -z "$CURRENT_BRANCH" ]; then
     fail \
       "unknown current branch" \
-      "The TradeTally native update script could not determine the current branch on $(hostname) at $(date -u)."
+      "The Blipyy native update script could not determine the current branch on $(hostname) at $(date -u)."
   fi
 
   UPSTREAM_REF="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null || true)"
   if [ -z "$UPSTREAM_REF" ]; then
     fail \
       "missing upstream branch" \
-      "The TradeTally native update script could not determine the upstream branch for '$CURRENT_BRANCH' on $(hostname) at $(date -u)."
+      "The Blipyy native update script could not determine the upstream branch for '$CURRENT_BRANCH' on $(hostname) at $(date -u)."
   fi
 
   UPSTREAM_REMOTE="${UPSTREAM_REF%%/*}"
@@ -291,7 +291,7 @@ sync_current_branch() {
   git rebase --abort >/dev/null 2>&1 || true
   fail \
     "branch sync conflict" \
-    "The TradeTally native update script could not automatically sync '$CURRENT_BRANCH' with '$UPSTREAM_REF' on $(hostname) at $(date -u).
+    "The Blipyy native update script could not automatically sync '$CURRENT_BRANCH' with '$UPSTREAM_REF' on $(hostname) at $(date -u).
 
 The branch has diverged and the automatic rebase failed. Resolve the git conflict manually on the host."
 }
@@ -319,7 +319,7 @@ sync_public_branch_if_needed() {
     git merge --abort >/dev/null 2>&1 || true
     fail \
       "automatic public sync conflict" \
-      "The TradeTally native update script attempted to merge origin/main into $UPSTREAM_REF on $(hostname) at $(date -u), but the automatic sync failed even while preferring the current branch on file conflicts.
+      "The Blipyy native update script attempted to merge origin/main into $UPSTREAM_REF on $(hostname) at $(date -u), but the automatic sync failed even while preferring the current branch on file conflicts.
 
 Missing public commits:
 $missing_public_list"
@@ -395,8 +395,8 @@ restart_backend() {
 # The site config must include the snippet once (one-time manual step); until it
 # does, this logs a NOTICE instead of failing.
 install_nginx_snippets() {
-  local src="$REPO_ROOT/scripts/nginx/tradetally-og.conf"
-  local dest="/etc/nginx/snippets/tradetally-og.conf"
+  local src="$REPO_ROOT/scripts/nginx/blipyy-og.conf"
+  local dest="/etc/nginx/snippets/blipyy-og.conf"
 
   if [ ! -f "$src" ]; then
     return
@@ -408,9 +408,9 @@ install_nginx_snippets() {
     log "Installed nginx snippet $dest"
   fi
 
-  if ! sudo grep -Rqs "tradetally-og.conf" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null; then
+  if ! sudo grep -Rqs "blipyy-og.conf" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null; then
     log "NOTICE: $dest is installed but not referenced by any nginx site config."
-    log "NOTICE: One-time step - add this line inside the tradetally server { } block:"
+    log "NOTICE: One-time step - add this line inside the blipyy server { } block:"
     log "NOTICE:   include $dest;"
     log "NOTICE: Shared trade links will not unfurl into cards until it is included."
   fi

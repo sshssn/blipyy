@@ -4,11 +4,11 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
-    container_name: tradetally-db-dev-new
+    container_name: blipyy-db-dev-new
     environment:
       POSTGRES_USER: ${DB_USER:-trader}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-trader_password}
-      POSTGRES_DB: ${DB_NAME:-tradetally}
+      POSTGRES_DB: ${DB_NAME:-blipyy}
     volumes:
       - postgres_data_dev-new:/var/lib/postgresql/data
     ports:
@@ -16,14 +16,14 @@ services:
     networks:
       - trader-network-dev-new
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-trader} -d ${DB_NAME:-tradetally}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-trader} -d ${DB_NAME:-blipyy}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  tradetally:
-    image: potentialmidas/tradetally:nightly
-    container_name: tradetally-app-dev-new
+  blipyy:
+    image: potentialmidas/blipyy:nightly
+    container_name: blipyy-app-dev-new
     depends_on:
       postgres:
         condition: service_healthy
@@ -35,7 +35,7 @@ services:
       DB_PORT: 5432
       DB_USER: ${DB_USER:-trader}
       DB_PASSWORD: ${DB_PASSWORD:-trader_password}
-      DB_NAME: ${DB_NAME:-tradetally}
+      DB_NAME: ${DB_NAME:-blipyy}
       JWT_SECRET: ${JWT_SECRET:-your_jwt_secret_here}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
       # Email configuration (optional)
@@ -43,7 +43,7 @@ services:
       EMAIL_PORT: ${EMAIL_PORT:-587}
       EMAIL_USER: ${EMAIL_USER:-}
       EMAIL_PASS: ${EMAIL_PASS:-}
-      EMAIL_FROM: ${EMAIL_FROM:-noreply@tradetally.io}
+      EMAIL_FROM: ${EMAIL_FROM:-noreply@blipyy.io}
       # Frontend API URL - use relative path so it works on any port
       VITE_API_URL: ${VITE_API_URL:-/api}
       # CORS Configuration for Mobile Apps
@@ -83,7 +83,7 @@ services:
   # Optional: Adminer for database management
   adminer:
     image: adminer:latest
-    container_name: tradetally-adminer-dev-new
+    container_name: blipyy-adminer-dev-new
     depends_on:
       - postgres
     ports:

@@ -59,7 +59,7 @@ describe('billing controller Apple verification', () => {
       user: { id: 'user-1' },
       body: {
         transaction_id: 'txn-1',
-        product_id: 'com.tradetally.pro.monthly',
+        product_id: 'com.blipyy.pro.monthly',
         receipt_data: 'signed-jws',
         environment: 'Xcode'
       }

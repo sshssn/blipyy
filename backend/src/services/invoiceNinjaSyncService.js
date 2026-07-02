@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 /**
  * Invoice Ninja Sync Service
- * Syncs TradeTally clients and products/plans into Invoice Ninja v5 via REST API.
+ * Syncs Blipyy clients and products/plans into Invoice Ninja v5 via REST API.
  *
  * Invoice Ninja v5 API docs: https://api-docs.invoicing.co/
  * Authentication: X-Api-Token header
@@ -99,14 +99,14 @@ class InvoiceNinjaSyncService {
     return Boolean(client?.is_deleted || this.isClientArchived(client));
   }
 
-  extractTradeTallyUserId(client) {
+  extractBlipyyUserId(client) {
     const notes = client?.private_notes || '';
-    const match = notes.match(/TradeTally User ID:\s*([^\n]+)/i);
+    const match = notes.match(/Blipyy User ID:\s*([^\n]+)/i);
     return match?.[1]?.trim() || null;
   }
 
-  isTradeTallyManagedClient(client) {
-    return Boolean(this.extractTradeTallyUserId(client));
+  isBlipyyManagedClient(client) {
+    return Boolean(this.extractBlipyyUserId(client));
   }
 
   buildClientData(userData, existingClient = null) {
@@ -237,14 +237,14 @@ class InvoiceNinjaSyncService {
     const interval = stripeInvoice?.lines?.data?.[0]?.price?.recurring?.interval;
 
     if (interval === 'year') {
-      return 'tradetally_pro_annual';
+      return 'blipyy_pro_annual';
     }
 
     if (interval === 'month') {
-      return 'tradetally_pro_monthly';
+      return 'blipyy_pro_monthly';
     }
 
-    return userData.tier === 'free' ? 'tradetally_free' : 'tradetally_pro_monthly';
+    return userData.tier === 'free' ? 'blipyy_free' : 'blipyy_pro_monthly';
   }
 
   getSubscriptionLineNotes(stripeInvoice, userData = {}) {
@@ -255,14 +255,14 @@ class InvoiceNinjaSyncService {
 
     const interval = stripeInvoice?.lines?.data?.[0]?.price?.recurring?.interval;
     if (interval === 'year') {
-      return 'TradeTally Pro annual subscription';
+      return 'Blipyy Pro annual subscription';
     }
 
     if (interval === 'month') {
-      return 'TradeTally Pro monthly subscription';
+      return 'Blipyy Pro monthly subscription';
     }
 
-    return `TradeTally ${userData.tier === 'free' ? 'Free' : 'Pro'} subscription`;
+    return `Blipyy ${userData.tier === 'free' ? 'Free' : 'Pro'} subscription`;
   }
 
   centsToAmount(value) {
@@ -385,7 +385,7 @@ class InvoiceNinjaSyncService {
         `Stripe invoice: ${stripeInvoiceId}`,
         stripeSubscriptionId ? `Stripe subscription: ${stripeSubscriptionId}` : null,
         paymentIntentId ? `Stripe payment intent: ${paymentIntentId}` : null,
-        `TradeTally user: ${userData.id}`,
+        `Blipyy user: ${userData.id}`,
       ].filter(Boolean).join('\n'),
       custom_value1: stripeInvoiceId,
       custom_value2: stripeSubscriptionId,
@@ -468,7 +468,7 @@ class InvoiceNinjaSyncService {
    */
   buildPrivateNotes(user) {
     const lines = [
-      `TradeTally User ID: ${user.id}`,
+      `Blipyy User ID: ${user.id}`,
       `Username: ${user.username}`,
       `Tier: ${user.tier}`,
       `Signup: ${user.created_at ? new Date(user.created_at).toISOString().split('T')[0] : 'unknown'}`,
@@ -482,7 +482,7 @@ class InvoiceNinjaSyncService {
   }
 
   /**
-   * Ensure TradeTally products/plans exist in Invoice Ninja
+   * Ensure Blipyy products/plans exist in Invoice Ninja
    */
   async syncProducts() {
     if (!this.enabled) return;
@@ -491,20 +491,20 @@ class InvoiceNinjaSyncService {
 
     const products = [
       {
-        product_key: 'tradetally_free',
-        notes: 'TradeTally Free Tier',
+        product_key: 'blipyy_free',
+        notes: 'Blipyy Free Tier',
         price: 0,
         custom_value1: 'free',
       },
       {
-        product_key: 'tradetally_pro_monthly',
-        notes: 'TradeTally Pro - Monthly Subscription',
+        product_key: 'blipyy_pro_monthly',
+        notes: 'Blipyy Pro - Monthly Subscription',
         price: 0, // Set to actual price or let Stripe handle pricing
         custom_value1: 'pro',
       },
       {
-        product_key: 'tradetally_pro_annual',
-        notes: 'TradeTally Pro - Annual Subscription',
+        product_key: 'blipyy_pro_annual',
+        notes: 'Blipyy Pro - Annual Subscription',
         price: 0,
         custom_value1: 'pro',
       },
@@ -531,7 +531,7 @@ class InvoiceNinjaSyncService {
   }
 
   /**
-   * Fetch paying/trialing users from TradeTally
+   * Fetch paying/trialing users from Blipyy
    */
   async fetchBillableUsers() {
     const query = `
@@ -571,7 +571,7 @@ class InvoiceNinjaSyncService {
   }
 
   /**
-   * Full sync: push all billable TradeTally users into Invoice Ninja as clients
+   * Full sync: push all billable Blipyy users into Invoice Ninja as clients
    */
   async syncAll() {
     if (!this.enabled) {
@@ -612,11 +612,11 @@ class InvoiceNinjaSyncService {
       const remoteClients = await this.listClients({ status: 'active,archived,deleted' });
 
       for (const client of remoteClients) {
-        if (!this.isTradeTallyManagedClient(client) || client?.is_deleted) {
+        if (!this.isBlipyyManagedClient(client) || client?.is_deleted) {
           continue;
         }
 
-        const remoteUserId = this.extractTradeTallyUserId(client);
+        const remoteUserId = this.extractBlipyyUserId(client);
         const remoteEmails = this.getClientEmails(client);
         const shouldExist = (
           (remoteUserId && syncableUserIds.has(String(remoteUserId)))

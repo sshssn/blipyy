@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "TradeTally API",
+    "title": "Blipyy API",
     "version": "1.0.0",
-    "description": "TradeTally trading journal and analytics API",
+    "description": "Blipyy trading journal and analytics API",
     "contact": {
-      "name": "TradeTally Support",
-      "url": "https://tradetally.com"
+      "name": "Blipyy Support",
+      "url": "https://blipyy.com"
     }
   },
   "servers": [

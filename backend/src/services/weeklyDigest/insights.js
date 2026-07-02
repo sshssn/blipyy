@@ -133,7 +133,7 @@ function normalizeRow(row) {
 }
 
 function pickHighlight(agg, { startDate, endDate, frontendUrl }) {
-  const base = frontendUrl || 'https://tradetally.io';
+  const base = frontendUrl || 'https://blipyy.io';
   const datedTrades = (extra = '') =>
     `${base}/trades?startDate=${startDate}&endDate=${endDate}${extra}`;
 

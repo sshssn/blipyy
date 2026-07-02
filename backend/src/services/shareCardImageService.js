@@ -11,7 +11,7 @@ const PAD = 72;
 // The logo mark is composited on as a raster, not drawn in the SVG: the favicon
 // is an Inkscape SVG with filters resvg can't render inline. Pre-rendered PNG
 // lives in the backend so it's available in both native and Docker deploys.
-const LOGO_PATH = path.join(__dirname, '../assets/tradetally-mark.png');
+const LOGO_PATH = path.join(__dirname, '../assets/blipyy-mark.png');
 const LOGO_SIZE = 52;
 const LOGO_TOP = 44;
 const WORDMARK_X = PAD + LOGO_SIZE + 16;
@@ -146,7 +146,7 @@ function buildTradeCardSvg(trade) {
 
   // Brand wordmark. The logo mark is composited on in renderTradeCardPng().
   const baseY = 96;
-  parts.push(text('TradeTally', WORDMARK_X, baseY - 4, { size: 30, weight: 600 }));
+  parts.push(text('Blipyy', WORDMARK_X, baseY - 4, { size: 30, weight: 600 }));
 
   // Status / date, top right
   if (isOpen) {
@@ -196,8 +196,8 @@ function buildTradeCardSvg(trade) {
 
   // Footer
   parts.push(`<line x1="${PAD}" y1="${CARD_HEIGHT - 86}" x2="${CARD_WIDTH - PAD}" y2="${CARD_HEIGHT - 86}" stroke="${COLORS.divider}" stroke-width="2"/>`);
-  parts.push(text('Journaled with TradeTally', PAD, CARD_HEIGHT - 40, { size: 24, weight: 500, color: COLORS.textMuted }));
-  parts.push(text('tradetally.io', CARD_WIDTH - PAD, CARD_HEIGHT - 40, { size: 24, weight: 500, color: COLORS.textSecondary, anchor: 'end' }));
+  parts.push(text('Journaled with Blipyy', PAD, CARD_HEIGHT - 40, { size: 24, weight: 500, color: COLORS.textMuted }));
+  parts.push(text('blipyy.io', CARD_WIDTH - PAD, CARD_HEIGHT - 40, { size: 24, weight: 500, color: COLORS.textSecondary, anchor: 'end' }));
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD_WIDTH}" height="${CARD_HEIGHT}" viewBox="0 0 ${CARD_WIDTH} ${CARD_HEIGHT}">${parts.join('')}</svg>`;
 }

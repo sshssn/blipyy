@@ -2464,8 +2464,8 @@ function buildDiagnosticSummary(diagnostics, context = {}) {
     return {
       title: 'Headers were recognized, but every row is missing a trade date.',
       body: importDateFromFilename
-        ? `TradeTally recognized this as Generic CSV and recovered the date from the filename (${importDateFromFilename}), but the rows still could not be turned into complete trades.`
-        : 'TradeTally recognized this as Generic CSV. The file includes time values, but there is no date column and no date in the filename for TradeTally to use.',
+        ? `Blipyy recognized this as Generic CSV and recovered the date from the filename (${importDateFromFilename}), but the rows still could not be turned into complete trades.`
+        : 'Blipyy recognized this as Generic CSV. The file includes time values, but there is no date column and no date in the filename for Blipyy to use.',
       steps: importDateFromFilename
         ? [
             'Confirm the file only contains executions from that single trade date.',
@@ -2482,7 +2482,7 @@ function buildDiagnosticSummary(diagnostics, context = {}) {
 
   if (allRowsSkipped && topReason) {
     return {
-      title: 'TradeTally could not build trades from this file.',
+      title: 'Blipyy could not build trades from this file.',
       body: `The most common row issue was: ${topReason}`,
       steps: [
         'Open skipped row details below to inspect the first few failures.',
@@ -2495,7 +2495,7 @@ function buildDiagnosticSummary(diagnostics, context = {}) {
   if (skipRate >= 50 && diagnostics.parsedRows > 0) {
     return {
       title: 'Import completed, but many rows could not be used.',
-      body: `TradeTally imported ${diagnostics.parsedRows} trades, but skipped ${(diagnostics.skippedRows + diagnostics.invalidRows)} of ${diagnostics.totalRows} rows.`,
+      body: `Blipyy imported ${diagnostics.parsedRows} trades, but skipped ${(diagnostics.skippedRows + diagnostics.invalidRows)} of ${diagnostics.totalRows} rows.`,
       steps: [
         'Review skipped row details to see whether non-trade rows are mixed into the file.',
         'Filter the export to executions, fills, or transactions only.',
@@ -2811,7 +2811,7 @@ async function parseCSV(fileBuffer, broker = 'generic', context = {}) {
     const firstHeaderLine = csvString.split('\n').find(line => line.trim().length > 0) || '';
     const firstHeaders = firstHeaderLine.split(',').map(header => header.replace(/^"|"$/g, '').trim());
     if (broker === 'tradestation' && hasTradingViewOrderHistoryHeaders(firstHeaders)) {
-      const warning = 'Selected broker was TradeStation, but the CSV headers match TradingView order history. TradeTally used the TradingView parser for this import.';
+      const warning = 'Selected broker was TradeStation, but the CSV headers match TradingView order history. Blipyy used the TradingView parser for this import.';
       console.log(`[BROKER MISMATCH] ${warning}`);
       diagnostics.warnings.push(warning);
       diagnostics.detectedBroker = 'tradingview';
@@ -6847,7 +6847,7 @@ async function parseThinkorswimTransactions(records, existingPositions = {}, con
 
       // Detect multi-leg option spreads (VERTICAL, IRON CONDOR, BUTTERFLY, etc.).
       // ThinkOrSwim emits these as a single row describing the whole spread, but
-      // TradeTally's data model represents trades as single instruments. Skip
+      // Blipyy's data model represents trades as single instruments. Skip
       // them with a clear diagnostic rather than truncating into a bogus symbol.
       const spreadMatch = symbolPart.match(/^(VERTICAL|DIAGONAL|CALENDAR|BUTTERFLY|CONDOR|IRON\s+CONDOR|IRON\s+BUTTERFLY|STRADDLE|STRANGLE|COVERED|COLLAR|RATIO|BACK\s+RATIO)\b/i);
       if (spreadMatch) {

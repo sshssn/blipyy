@@ -223,7 +223,7 @@ class PlaidFundingService {
     }
 
     if (!targetAccountId) {
-      throw new Error('A TradeTally account must be selected or created');
+      throw new Error('A Blipyy account must be selected or created');
     }
 
     const plaidAccount = await PlaidConnection.setAccountLink(

@@ -1,6 +1,6 @@
 # Pricing Experiments
 
-TradeTally supports a GrowthBook-driven monthly pricing experiment on the web pricing page.
+Blipyy supports a GrowthBook-driven monthly pricing experiment on the web pricing page.
 
 ## Current experiment
 

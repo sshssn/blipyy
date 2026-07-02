@@ -44,7 +44,7 @@ describe('market data provider selection', () => {
 
   test('uses FMP when selected even for cloud deployments', () => {
     process.env.MARKET_DATA_PROVIDER = 'fmp';
-    process.env.FRONTEND_URL = 'https://tradetally.io';
+    process.env.FRONTEND_URL = 'https://blipyy.io';
     process.env.BILLING_ENABLED = 'true';
 
     const provider = require('../../src/utils/finnhub');

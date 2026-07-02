@@ -4,7 +4,7 @@ const db = require('../config/database');
 const logger = require('../utils/logger');
 const WebMentionMatcherService = require('./webMentionMatcherService');
 
-const USER_AGENT = 'TradeTally Web Mentions/1.0 (+https://tradetally.io)';
+const USER_AGENT = 'Blipyy Web Mentions/1.0 (+https://blipyy.io)';
 const MAX_ITEMS_PER_SOURCE = parseInt(process.env.WEB_MENTION_MAX_ITEMS_PER_SOURCE || '40', 10);
 
 class WebMentionFetcherService {

@@ -1,5 +1,5 @@
 /**
- * Regression coverage for the Schwab API-payload -> TradeTally trade mapping layer.
+ * Regression coverage for the Schwab API-payload -> Blipyy trade mapping layer.
  *
  * Pins the behavior of:
  *  - parseTransactionDetails (single transaction -> normalized fill)

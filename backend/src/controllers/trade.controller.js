@@ -862,7 +862,7 @@ const tradeController = {
 
       // Generate filename with date
       const timestamp = new Date().toISOString().split('T')[0];
-      const filename = `tradetally-export-${timestamp}.csv`;
+      const filename = `blipyy-export-${timestamp}.csv`;
 
       // Set headers for CSV download
       res.setHeader('Content-Type', 'text/csv');
@@ -4138,7 +4138,7 @@ const tradeController = {
         ].join('\n');
 
         // Set headers for file download
-        const filename = `tradetally_export_${new Date().toISOString().split('T')[0]}.csv`;
+        const filename = `blipyy_export_${new Date().toISOString().split('T')[0]}.csv`;
         res.setHeader('Content-Type', 'text/csv');
         res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
         res.send(csvContent);
@@ -4756,7 +4756,7 @@ const tradeController = {
         const pageResponse = await axios.get(`https://www.tradingview.com/x/${snapshotId}/`, {
           timeout: 10000,
           headers: {
-            'User-Agent': 'TradeTallySnapshotProxy/1.0'
+            'User-Agent': 'BlipyySnapshotProxy/1.0'
           },
           validateStatus: status => status >= 200 && status < 400
         });

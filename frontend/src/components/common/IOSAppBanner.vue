@@ -26,7 +26,7 @@
             class="h-10 w-10 rounded-lg flex-shrink-0"
           />
           <div class="min-w-0 flex-1">
-            <div class="text-sm font-semibold truncate">TradeTally</div>
+            <div class="text-sm font-semibold truncate">Blipyy</div>
             <div class="text-xs text-white/70 truncate">Get the iPhone app — free</div>
           </div>
           <a
@@ -46,7 +46,7 @@ import { ref, computed, onMounted } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
 
-const APP_STORE_URL = 'https://apps.apple.com/us/app/tradetally/id6748022992'
+const APP_STORE_URL = 'https://apps.apple.com/us/app/blipyy/id6748022992'
 const DISMISS_KEY = 'ios_app_banner_dismissed'
 
 const authStore = useAuthStore()

@@ -1703,7 +1703,7 @@ function excursionInputToDollars(value) {
 
 function excursionInputTitle(baseText) {
   if (!isFutureForm.value) return `${baseText}. Enter dollars.`
-  return `${baseText}. Enter futures points; TradeTally saves the dollar value using quantity × point value.`
+  return `${baseText}. Enter futures points; Blipyy saves the dollar value using quantity × point value.`
 }
 
 // Check if we have grouped executions (complete trades with entry/exit)

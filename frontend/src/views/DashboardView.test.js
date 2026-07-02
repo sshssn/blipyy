@@ -82,7 +82,7 @@ vi.mock('@/composables/useGlobalAccountFilter', async () => {
   const { ref, computed } = await import('vue')
   const selectedAccount = ref(null)
   return {
-    STORAGE_KEY: 'tradetally_global_account',
+    STORAGE_KEY: 'blipyy_global_account',
     UNSORTED_ACCOUNT: '__unsorted__',
     useGlobalAccountFilter: () => ({
       selectedAccount,

@@ -70,6 +70,60 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: '/market-brief',
+      name: 'market-brief',
+      component: () => import('@/views/MarketBriefView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/sol',
+      name: 'sol-dashboard',
+      component: () => import('@/views/SolDashboardView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/weekly-review',
+      name: 'weekly-review',
+      component: () => import('@/views/WeeklyReviewView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/monthly-review',
+      name: 'monthly-review',
+      component: () => import('@/views/MonthlyReviewView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/ai/pre-trade',
+      name: 'ai-pre-trade',
+      component: () => import('@/views/ai/PreTradeAnalysisView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/ai/post-trade',
+      name: 'ai-post-trade',
+      component: () => import('@/views/ai/PostTradeReviewView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/ai/coach',
+      name: 'ai-coach',
+      component: () => import('@/views/ai/AiCoachView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/signals',
+      name: 'signal-engine',
+      component: () => import('@/views/SignalEngineView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/rules',
+      name: 'rule-engine',
+      component: () => import('@/views/RuleEngineView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/trades',
       name: 'trades',
       component: () => import('@/views/trades/TradeListView.vue'),
@@ -84,8 +138,6 @@ const router = createRouter({
     {
       path: '/trades/:id',
       name: 'trade-detail',
-      // Public trades are viewable without login (shared links). The view loads
-      // the trade and, if it's private/not found for a guest, redirects to login.
       component: () => import('@/views/trades/TradeDetailView.vue'),
       meta: { publicViewable: true }
     },

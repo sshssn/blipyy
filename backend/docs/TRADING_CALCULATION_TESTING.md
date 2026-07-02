@@ -28,11 +28,11 @@ import pipeline end to end plus `TradeQueries.getAnalytics` (including the
 whole-trade position grouping mode).
 
 ```bash
-docker run -d --name tradetally-test-pg -p 5440:5432 \
-  -e POSTGRES_USER=tradetally -e POSTGRES_PASSWORD=testpass \
-  -e POSTGRES_DB=tradetally_test postgres:16-alpine
+docker run -d --name blipyy-test-pg -p 5440:5432 \
+  -e POSTGRES_USER=blipyy -e POSTGRES_PASSWORD=testpass \
+  -e POSTGRES_DB=blipyy_test postgres:16-alpine
 
-TEST_DATABASE_URL=postgres://tradetally:testpass@localhost:5440/tradetally_test \
+TEST_DATABASE_URL=postgres://blipyy:testpass@localhost:5440/blipyy_test \
   pnpm --dir backend test:integration
 ```
 

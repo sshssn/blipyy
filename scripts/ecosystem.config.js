@@ -16,8 +16,8 @@ if (process.env.VITE_POSTHOG_HOST) {
 module.exports = {
   apps: [
     {
-      name: 'tradetally-backend-native',
-      cwd: '/home/docker-admin/tradetally/backend',
+      name: 'blipyy-backend-native',
+      cwd: '/home/docker-admin/blipyy/backend',
       script: 'src/server.js',
       instances: 1,
       exec_mode: 'fork',
@@ -25,9 +25,9 @@ module.exports = {
       watch: false,
       max_memory_restart: '1G',
       env,
-      error_file: '/home/docker-admin/tradetally/backend/logs/pm2-error.log',
-      out_file: '/home/docker-admin/tradetally/backend/logs/pm2-out.log',
-      log_file: '/home/docker-admin/tradetally/backend/logs/pm2-combined.log',
+      error_file: '/home/docker-admin/blipyy/backend/logs/pm2-error.log',
+      out_file: '/home/docker-admin/blipyy/backend/logs/pm2-out.log',
+      log_file: '/home/docker-admin/blipyy/backend/logs/pm2-combined.log',
       time: true
     }
   ]

@@ -17,7 +17,7 @@ async function loadComposable() {
 
 describe('useGlobalAccountFilter', () => {
   it('initializes from localStorage and persists account changes', async () => {
-    localStorage.setItem('tradetally_global_account', ' 12345678 ')
+    localStorage.setItem('blipyy_global_account', ' 12345678 ')
     const { useGlobalAccountFilter } = await loadComposable()
     const filter = useGlobalAccountFilter()
 
@@ -26,11 +26,11 @@ describe('useGlobalAccountFilter', () => {
 
     filter.setAccount(' Schwab ')
     expect(filter.selectedAccount.value).toBe('Schwab')
-    expect(localStorage.getItem('tradetally_global_account')).toBe('Schwab')
+    expect(localStorage.getItem('blipyy_global_account')).toBe('Schwab')
 
     filter.clearAccount()
     expect(filter.selectedAccount.value).toBe(null)
-    expect(localStorage.getItem('tradetally_global_account')).toBe(null)
+    expect(localStorage.getItem('blipyy_global_account')).toBe(null)
   })
 
   it('merges trade accounts and managed accounts into sorted selector options', async () => {
@@ -63,7 +63,7 @@ describe('useGlobalAccountFilter', () => {
   })
 
   it('clears a stored account that no longer exists', async () => {
-    localStorage.setItem('tradetally_global_account', 'OLD-1234')
+    localStorage.setItem('blipyy_global_account', 'OLD-1234')
     api.get.mockResolvedValue({ data: { accounts: [] } })
 
     const { useGlobalAccountFilter } = await loadComposable()
@@ -71,6 +71,6 @@ describe('useGlobalAccountFilter', () => {
     await filter.fetchAccounts()
 
     expect(filter.selectedAccount.value).toBe(null)
-    expect(localStorage.getItem('tradetally_global_account')).toBe(null)
+    expect(localStorage.getItem('blipyy_global_account')).toBe(null)
   })
 })

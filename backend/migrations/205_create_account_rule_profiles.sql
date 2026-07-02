@@ -2,7 +2,7 @@
 -- Rule profiles for funded/evaluation accounts (Topstep, Apex, Tradovate evals,
 -- ProjectX, etc.). A profile attaches firm rules (max daily loss, max drawdown,
 -- profit target, minimum trading days) to a trading account identifier so
--- TradeTally can compute live pass/fail status from imported trades.
+-- Blipyy can compute live pass/fail status from imported trades.
 
 CREATE TABLE IF NOT EXISTS account_rule_profiles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

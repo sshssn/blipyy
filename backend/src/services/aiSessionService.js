@@ -70,7 +70,7 @@ class AISessionService {
 
     return `You are a strict classifier for a trading journal AI assistant.
 
-Decide whether the user's message is related to trading, investing, market analysis, risk management, trade journaling, trading psychology, broker/import issues, or their TradeTally analysis session.
+Decide whether the user's message is related to trading, investing, market analysis, risk management, trade journaling, trading psychology, broker/import issues, or their Blipyy analysis session.
 
 Allowed examples:
 - Questions about trades, positions, setups, entries, exits, stops, targets, P&L, win rate, risk, sizing, journaling, broker data, chart/news context, market behavior, trading psychology, or improving a trading process.

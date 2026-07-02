@@ -69,7 +69,7 @@ function runScenario(name, base, inputs, em) {
 
   // ===== Formula variants =====
 
-  // V1: Textbook DCF (current TradeTally formula)
+  // V1: Textbook DCF (current Blipyy formula)
   // Future Price = (Future NI / shares) × multiple
   // Fair Value = Future Price / (1+r)^N
   const fullDiscount = Math.pow(1 + required, YEARS);
@@ -141,7 +141,7 @@ function runScenario(name, base, inputs, em) {
 }
 
 console.log(`\n${'#'.repeat(90)}`);
-console.log(`# AAPL DCF formula investigation — reverse-engineering EM vs TradeTally`);
+console.log(`# AAPL DCF formula investigation — reverse-engineering EM vs Blipyy`);
 console.log(`${'#'.repeat(90)}`);
 
 console.log(`\n\nUSING FY2024 BASE (revenue $${(AAPL_FY2024.revenue/1e9).toFixed(0)}B, NI $${(AAPL_FY2024.netIncome/1e9).toFixed(0)}B, FCF $${(AAPL_FY2024.fcf/1e9).toFixed(0)}B, shares ${(AAPL_FY2024.shares/1e9).toFixed(2)}B)`);

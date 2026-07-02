@@ -13,7 +13,7 @@ RUN npm install -g pnpm@10.13.1
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY frontend/package.json ./frontend/package.json
 # Use lockfile-based installs for deterministic CI builds.
-RUN pnpm install --filter tradetally-frontend --frozen-lockfile
+RUN pnpm install --filter blipyy-frontend --frozen-lockfile
 COPY frontend/ ./frontend
 
 # Set VITE_API_URL to use relative path for Nginx proxy
@@ -54,10 +54,10 @@ RUN npm install -g pnpm@10.13.1 node-gyp
 # Sharp will automatically download prebuilt binaries for Alpine Linux
 # Set environment variable to ensure Sharp uses prebuilt binaries
 ENV SHARP_IGNORE_GLOBAL_LIBVIPS=1
-RUN pnpm install --filter tradetally-backend --prod --frozen-lockfile
+RUN pnpm install --filter blipyy-backend --prod --frozen-lockfile
 
 COPY backend/ ./backend
-RUN pnpm deploy --filter tradetally-backend --prod --legacy /prod/backend
+RUN pnpm deploy --filter blipyy-backend --prod --legacy /prod/backend
 
 FROM node:20-alpine3.21
 # Update packages to fix vulnerabilities

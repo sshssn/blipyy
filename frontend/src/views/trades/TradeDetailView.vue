@@ -2196,7 +2196,7 @@ const manualOptionPrice = computed(() => {
   const isOpen = !trade.value.exit_time
   if (!isOption || !isOpen) return null
   try {
-    const stored = localStorage.getItem('tradetally_manual_option_prices')
+    const stored = localStorage.getItem('blipyy_manual_option_prices')
     if (!stored) return null
     const map = JSON.parse(stored)
     const price = map[trade.value.symbol]

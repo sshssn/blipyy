@@ -3,7 +3,7 @@
 // Runs as a Jest setupFile (before any module loads) so config/database picks
 // up the scratch database. The suite only runs via `npm run test:integration`
 // with TEST_DATABASE_URL set, e.g.:
-//   TEST_DATABASE_URL=postgres://tradetally:testpass@localhost:5440/tradetally_test
+//   TEST_DATABASE_URL=postgres://blipyy:testpass@localhost:5440/blipyy_test
 //
 // NEVER point TEST_DATABASE_URL at a real database — the suite truncates
 // tables between tests.
@@ -11,9 +11,9 @@
 if (!process.env.TEST_DATABASE_URL) {
   throw new Error(
     'TEST_DATABASE_URL is required for the integration suite. ' +
-    'Run a scratch Postgres (e.g. docker run -d -p 5440:5432 -e POSTGRES_USER=tradetally ' +
-    '-e POSTGRES_PASSWORD=testpass -e POSTGRES_DB=tradetally_test postgres:16-alpine) and set ' +
-    'TEST_DATABASE_URL=postgres://tradetally:testpass@localhost:5440/tradetally_test'
+    'Run a scratch Postgres (e.g. docker run -d -p 5440:5432 -e POSTGRES_USER=blipyy ' +
+    '-e POSTGRES_PASSWORD=testpass -e POSTGRES_DB=blipyy_test postgres:16-alpine) and set ' +
+    'TEST_DATABASE_URL=postgres://blipyy:testpass@localhost:5440/blipyy_test'
   );
 }
 

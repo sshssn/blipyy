@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Start script for TradeTally backend
+# Start script for Blipyy backend
 # This script runs database migrations before starting the application
 
-echo "[START] Starting TradeTally Backend..."
+echo "[START] Starting Blipyy Backend..."
 
 # Wait for database to be ready
 echo "[PROCESS] Waiting for database to be ready..."

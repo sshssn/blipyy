@@ -59,7 +59,7 @@ class PlaidClient {
       user: {
         client_user_id: String(userId)
       },
-      client_name: 'TradeTally',
+      client_name: 'Blipyy',
       language: 'en',
       country_codes: countryCodes
     };

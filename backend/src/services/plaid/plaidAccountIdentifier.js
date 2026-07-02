@@ -1,5 +1,5 @@
 /**
- * The account identifier TradeTally uses to tie a Plaid account's trades,
+ * The account identifier Blipyy uses to tie a Plaid account's trades,
  * holdings, and cash together. Holdings sync stamps this onto investment_lots
  * and linkPlaidAccount stamps the same value onto the managed user_accounts row,
  * so positions and cashflow roll up to one account. Both paths MUST derive the

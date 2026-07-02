@@ -11,7 +11,7 @@ export const SYNCED_KEYS = Object.freeze([
   'tradeListFullWidth',
   'tradeFilters',
   'tradeFiltersPeriod',
-  'tradetally_global_account',
+  'blipyy_global_account',
   'dashboardTimeRange',
   'dashboardCustomStartDate',
   'dashboardCustomEndDate',

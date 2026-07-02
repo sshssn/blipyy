@@ -32,7 +32,7 @@ mkdir -p \
 chown -R appuser:appgroup /app/backend/uploads /app/backend/src/data /app/backend/src/logs
 
 # Start backend as non-root user (migrations will run automatically)
-echo "[START] Starting TradeTally backend..."
+echo "[START] Starting Blipyy backend..."
 cd /app/backend && su-exec appuser node src/server.js &
 
 # Wait for backend to start

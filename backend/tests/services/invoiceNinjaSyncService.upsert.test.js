@@ -83,13 +83,13 @@ describe('InvoiceNinjaSyncService client reconciliation', () => {
       {
         id: 'client_keep',
         is_deleted: false,
-        private_notes: 'TradeTally User ID: user-1\nUsername: active-user',
+        private_notes: 'Blipyy User ID: user-1\nUsername: active-user',
         contacts: [{ email: 'active@example.com' }]
       },
       {
         id: 'client_delete',
         is_deleted: false,
-        private_notes: 'TradeTally User ID: user-2\nUsername: old-user',
+        private_notes: 'Blipyy User ID: user-2\nUsername: old-user',
         contacts: [{ email: 'old@example.com' }]
       }
     ]);

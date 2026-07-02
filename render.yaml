@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: blipyy-api
+    env: node
+    region: oregon
+    buildCommand: npm install -g pnpm && pnpm install
+    startCommand: node src/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        value: https://blipyy.pages.dev
+      - key: CORS_ORIGINS
+        value: https://blipyy.pages.dev
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: RUN_MIGRATIONS
+        value: "true"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: REGISTRATION_MODE
+        value: open
+      - key: ENABLE_PRICE_MONITORING
+        value: "false"
+      - key: ENABLE_TRIAL_EMAILS
+        value: "false"
+      - key: ENABLE_GAMIFICATION
+        value: "false"
+      - key: ENABLE_BACKUP_SCHEDULER
+        value: "false"
+      - key: DISABLE_BACKGROUND_JOBS
+        value: "true"

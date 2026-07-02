@@ -183,8 +183,8 @@ describe('auth cookie options', () => {
       protocol: 'http',
       secure: false,
       headers: {
-        origin: 'https://tradetally.example.com',
-        host: 'tradetally.example.com',
+        origin: 'https://blipyy.example.com',
+        host: 'blipyy.example.com',
         'x-forwarded-proto': 'https,http'
       },
       get(name) {

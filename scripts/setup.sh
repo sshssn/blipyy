@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Setup script for TradeTally
+# Setup script for Blipyy
 
-echo "[SETUP] Setting up TradeTally..."
+echo "[SETUP] Setting up Blipyy..."
 
 if ! command -v pnpm >/dev/null 2>&1; then
     echo "[ERROR] pnpm is required. Install it with: npm install -g pnpm@10.13.1"
@@ -24,7 +24,7 @@ echo "[SUCCESS] Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Update backend/.env with your PostgreSQL database credentials"
-echo "2. Create the database: createdb tradetally"
+echo "2. Create the database: createdb blipyy"
 echo "3. Run migrations: cd backend && pnpm run migrate"
 echo "4. Start backend: pnpm --dir backend run dev"
 echo "5. Start frontend: pnpm --dir frontend run dev"

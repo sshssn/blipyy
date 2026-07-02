@@ -52,7 +52,7 @@ describe('billing controller checkout and pricing experiments', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.FRONTEND_URL = 'https://app.tradetally.test';
+    process.env.FRONTEND_URL = 'https://app.blipyy.test';
   });
 
   it('returns pricing experiment metadata alongside plans', async () => {
@@ -73,7 +73,7 @@ describe('billing controller checkout and pricing experiments', () => {
 
     const req = {
       headers: {
-        host: 'tradetally.test',
+        host: 'blipyy.test',
         'user-agent': 'jest'
       }
     };
@@ -117,8 +117,8 @@ describe('billing controller checkout and pricing experiments', () => {
     expect(BillingService.createCheckoutSession).toHaveBeenCalledWith(
       'user-1',
       'price_monthly_high',
-      'https://app.tradetally.test/billing?session_id={CHECKOUT_SESSION_ID}&redirect=%2Fdashboard',
-      'https://app.tradetally.test/pricing',
+      'https://app.blipyy.test/billing?session_id={CHECKOUT_SESSION_ID}&redirect=%2Fdashboard',
+      'https://app.blipyy.test/pricing',
       'partner-1',
       {
         key: 'pricing_monthly_offer',

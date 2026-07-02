@@ -2,7 +2,7 @@
 #
 # check-public-clean.sh — fail if any cloud-only path exists in a git tree.
 #
-# The PUBLIC repo (origin = github.com/GeneBO98/tradetally) must never contain
+# The PUBLIC repo (origin = github.com/GeneBO98/blipyy) must never contain
 # cloud-exclusive code. This script is the single source of truth for "what is
 # forbidden on public" and is used by:
 #   - githooks/pre-push       (blocks a push to the public remote)
@@ -28,7 +28,7 @@ FORBIDDEN=(
   'backend/scripts/sync_sequenzy_marketing_sequences.js'
   'backend/scripts/sync_sequenzy_subscribers.js'
 
-  # --- Verified trades (tradetally.io exclusive — do not upstream) ---
+  # --- Verified trades (blipyy.io exclusive — do not upstream) ---
   'frontend/src/views/VerifyTradeView.vue'
   'backend/src/services/tradeVerificationService.js'
   'backend/src/routes/tradeVerification.routes.js'

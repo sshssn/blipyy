@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# TradeTally Docker to Native Migration Script
+# Blipyy Docker to Native Migration Script
 # This script automates the migration from Docker to native services
 
 set -e  # Exit on error
@@ -12,11 +12,11 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Configuration
-MIGRATION_DIR="$HOME/tradetally-migration"
-APP_DIR="/opt/tradetally"
+MIGRATION_DIR="$HOME/blipyy-migration"
+APP_DIR="/opt/blipyy"
 BACKUP_DATE=$(date +%Y%m%d_%H%M%S)
 
-echo -e "${GREEN}TradeTally Migration Script - Docker to Native${NC}"
+echo -e "${GREEN}Blipyy Migration Script - Docker to Native${NC}"
 echo "================================================"
 
 # Function to check command exists
@@ -45,8 +45,8 @@ if ! command_exists docker; then
     exit 1
 fi
 
-if ! docker ps | grep -q tradetally; then
-    print_warning "TradeTally containers are not running. Starting them..."
+if ! docker ps | grep -q blipyy; then
+    print_warning "Blipyy containers are not running. Starting them..."
     docker-compose -f docker-compose.dev.yaml up -d
     sleep 10
 fi
@@ -60,13 +60,13 @@ print_status "Migration directory created at $MIGRATION_DIR"
 echo -e "\n${YELLOW}Step 3: Exporting PostgreSQL database${NC}"
 
 echo "Exporting database..."
-docker exec tradetally-db-dev pg_dump -U trader -d tradetally > "$MIGRATION_DIR/tradetally_backup_$BACKUP_DATE.sql" 2>/dev/null || \
-docker exec tradetally-postgres-1 pg_dump -U trader -d tradetally > "$MIGRATION_DIR/tradetally_backup_$BACKUP_DATE.sql" 2>/dev/null || \
-docker exec tradetally-db pg_dump -U trader -d tradetally > "$MIGRATION_DIR/tradetally_backup_$BACKUP_DATE.sql"
+docker exec blipyy-db-dev pg_dump -U trader -d blipyy > "$MIGRATION_DIR/blipyy_backup_$BACKUP_DATE.sql" 2>/dev/null || \
+docker exec blipyy-postgres-1 pg_dump -U trader -d blipyy > "$MIGRATION_DIR/blipyy_backup_$BACKUP_DATE.sql" 2>/dev/null || \
+docker exec blipyy-db pg_dump -U trader -d blipyy > "$MIGRATION_DIR/blipyy_backup_$BACKUP_DATE.sql"
 
-if [ -f "$MIGRATION_DIR/tradetally_backup_$BACKUP_DATE.sql" ]; then
+if [ -f "$MIGRATION_DIR/blipyy_backup_$BACKUP_DATE.sql" ]; then
     print_status "Database exported successfully"
-    echo "Backup size: $(du -h "$MIGRATION_DIR/tradetally_backup_$BACKUP_DATE.sql" | cut -f1)"
+    echo "Backup size: $(du -h "$MIGRATION_DIR/blipyy_backup_$BACKUP_DATE.sql" | cut -f1)"
 else
     print_error "Database export failed"
     exit 1
@@ -77,7 +77,7 @@ echo -e "\n${YELLOW}Step 4: Exporting application data${NC}"
 
 # Try different container names
 CONTAINER_NAME=""
-for name in tradetally-app-dev tradetally-app; do
+for name in blipyy-app-dev blipyy-app; do
     if docker ps | grep -q $name; then
         CONTAINER_NAME=$name
         break
@@ -174,16 +174,16 @@ echo -e "\n${YELLOW}Step 7: Setting up PostgreSQL${NC}"
 echo "Creating database and user..."
 sudo -u postgres psql <<EOF
 CREATE USER trader WITH PASSWORD 'trader_password';
-CREATE DATABASE tradetally OWNER trader;
-GRANT ALL PRIVILEGES ON DATABASE tradetally TO trader;
+CREATE DATABASE blipyy OWNER trader;
+GRANT ALL PRIVILEGES ON DATABASE blipyy TO trader;
 EOF
 
 print_status "Database and user created"
 
 # Import the database
 echo "Importing database backup..."
-sudo -u postgres psql tradetally < "$MIGRATION_DIR/tradetally_backup_$BACKUP_DATE.sql"
-sudo -u postgres psql -c "ALTER DATABASE tradetally OWNER TO trader;"
+sudo -u postgres psql blipyy < "$MIGRATION_DIR/blipyy_backup_$BACKUP_DATE.sql"
+sudo -u postgres psql -c "ALTER DATABASE blipyy OWNER TO trader;"
 print_status "Database imported successfully"
 
 # Step 8: Set up application directory
@@ -212,10 +212,10 @@ fi
 echo -e "\n${YELLOW}Step 9: Installing dependencies${NC}"
 
 cd "$APP_DIR"
-pnpm install --filter tradetally-backend --prod --frozen-lockfile
+pnpm install --filter blipyy-backend --prod --frozen-lockfile
 print_status "Backend dependencies installed"
 
-pnpm install --filter tradetally-frontend --frozen-lockfile
+pnpm install --filter blipyy-frontend --frozen-lockfile
 pnpm --dir frontend run build
 print_status "Frontend built successfully"
 
@@ -226,7 +226,7 @@ if [ -f "$MIGRATION_DIR/.env.backup" ]; then
     cp "$MIGRATION_DIR/.env.backup" "$APP_DIR/backend/.env"
     # Update database host for native setup
     sed -i 's/DB_HOST=postgres/DB_HOST=localhost/g' "$APP_DIR/backend/.env"
-    sed -i 's/DB_HOST=tradetally-db/DB_HOST=localhost/g' "$APP_DIR/backend/.env"
+    sed -i 's/DB_HOST=blipyy-db/DB_HOST=localhost/g' "$APP_DIR/backend/.env"
     print_status "Environment configured"
 else
     print_warning "No backup .env found. Please configure manually at $APP_DIR/backend/.env"
@@ -243,9 +243,9 @@ echo -e "\n${YELLOW}Step 12: Setting up PM2${NC}"
 cat > "$APP_DIR/ecosystem.config.js" <<'EOF'
 module.exports = {
   apps: [{
-    name: 'tradetally-backend',
+    name: 'blipyy-backend',
     script: './src/server.js',
-    cwd: '/opt/tradetally/backend',
+    cwd: '/opt/blipyy/backend',
     instances: 2,
     exec_mode: 'cluster',
     env: {
@@ -270,12 +270,12 @@ print_status "PM2 configured and started"
 # Step 13: Configure Nginx
 echo -e "\n${YELLOW}Step 13: Configuring Nginx${NC}"
 
-sudo tee /etc/nginx/sites-available/tradetally > /dev/null <<'EOF'
+sudo tee /etc/nginx/sites-available/blipyy > /dev/null <<'EOF'
 server {
     listen 80;
     server_name localhost;
 
-    root /opt/tradetally/frontend/dist;
+    root /opt/blipyy/frontend/dist;
     index index.html;
 
     # OWASP-aligned security headers for frontend responses
@@ -323,7 +323,7 @@ server {
 }
 EOF
 
-sudo ln -sf /etc/nginx/sites-available/tradetally /etc/nginx/sites-enabled/
+sudo ln -sf /etc/nginx/sites-available/blipyy /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
 print_status "Nginx configured"
@@ -354,15 +354,15 @@ fi
 
 # Final summary
 echo -e "\n${GREEN}=== Migration Complete ===${NC}"
-echo "TradeTally has been migrated to native services!"
+echo "Blipyy has been migrated to native services!"
 echo ""
 echo "Access your application at: http://localhost"
 echo ""
 echo "Useful commands:"
-echo "  View logs:        pm2 logs tradetally-backend"
+echo "  View logs:        pm2 logs blipyy-backend"
 echo "  Monitor:          pm2 monit"
-echo "  Restart backend:  pm2 restart tradetally-backend"
-echo "  Stop backend:     pm2 stop tradetally-backend"
+echo "  Restart backend:  pm2 restart blipyy-backend"
+echo "  Stop backend:     pm2 stop blipyy-backend"
 echo ""
 echo "Backup location: $MIGRATION_DIR"
 echo ""
@@ -371,4 +371,4 @@ echo "Once you've verified everything works, you can stop them with:"
 echo "  docker-compose -f docker-compose.dev.yaml down"
 echo ""
 echo "To remove Docker volumes (ONLY after confirming data is migrated!):"
-echo "  docker volume rm tradetally_postgres_data_dev"
+echo "  docker volume rm blipyy_postgres_data_dev"

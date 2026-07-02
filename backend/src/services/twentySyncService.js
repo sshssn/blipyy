@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 /**
  * Twenty CRM Sync Service
- * Syncs TradeTally users, subscription status, and product health signals
+ * Syncs Blipyy users, subscription status, and product health signals
  * into Twenty CRM via its GraphQL API.
  *
  * Twenty endpoints:
@@ -402,7 +402,7 @@ class TwentySyncService {
   }
 
   /**
-   * Fetch all users with subscription and activity data from TradeTally
+   * Fetch all users with subscription and activity data from Blipyy
    */
   async fetchUsersWithContext() {
     const query = `
@@ -488,7 +488,7 @@ class TwentySyncService {
   }
 
   /**
-   * Full sync: push all TradeTally users into Twenty
+   * Full sync: push all Blipyy users into Twenty
    */
   async syncAll() {
     if (!this.enabled) {

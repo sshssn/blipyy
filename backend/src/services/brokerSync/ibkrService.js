@@ -18,7 +18,7 @@ const OptionStrategyGroupingService = require('../optionStrategyGroupingService'
 const { version: APP_VERSION } = require('../../../package.json');
 
 const FLEX_BASE_URL = 'https://ndcdyn.interactivebrokers.com/AccountManagement/FlexWebService';
-const FLEX_USER_AGENT = `TradeTally/${APP_VERSION}`;
+const FLEX_USER_AGENT = `Blipyy/${APP_VERSION}`;
 const REPORT_REQUEST_TIMEOUT = 120000; // 2 minutes to request report
 const REPORT_POLL_INTERVAL = 5000; // Poll every 5 seconds
 const REPORT_INITIAL_MAX_WAIT = 300000; // Initial 5 min poll window before extending
@@ -1371,7 +1371,7 @@ class IBKRService {
 
   buildReportRequestParams(flexToken, queryId) {
     // We intentionally do not send fd/td. The Flex Query's own period (configured
-    // in IBKR) determines what data IBKR returns; TradeTally filters to the
+    // in IBKR) determines what data IBKR returns; Blipyy filters to the
     // user-requested date range after parsing via filterByDateRange().
     return {
       t: flexToken,

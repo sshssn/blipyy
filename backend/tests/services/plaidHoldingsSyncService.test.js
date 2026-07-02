@@ -155,7 +155,7 @@ describe('plaidHoldingsSyncService.syncHoldings', () => {
     expect(params[7]).toMatch(/estimated/i);
   });
 
-  it('uses the linked TradeTally account identifier when the plaid account is linked', async () => {
+  it('uses the linked Blipyy account identifier when the plaid account is linked', async () => {
     plaidClient.getInvestmentHoldings.mockResolvedValue({
       holdings: [holding()],
       securities: [security()]

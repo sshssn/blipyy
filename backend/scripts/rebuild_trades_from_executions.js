@@ -343,7 +343,7 @@ async function compareToTraderVue(user, rebuiltTrades, cleanup) {
   const result = await service.compareImportedTrades(rebuiltTrades, importTag, { cleanup });
   console.log('\nTraderVue Comparison Summary');
   console.log(JSON.stringify(result.comparison.summary, null, 2));
-  printTradeList('Only In Rebuilt Trades', result.comparison.details.onlyInTradeTally);
+  printTradeList('Only In Rebuilt Trades', result.comparison.details.onlyInBlipyy);
   printTradeList('Only In TraderVue', result.comparison.details.onlyInTraderVue);
 }
 

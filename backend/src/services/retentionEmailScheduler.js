@@ -55,7 +55,7 @@ class RetentionEmailScheduler {
         return;
       }
 
-      const frontendUrl = process.env.FRONTEND_URL || 'https://tradetally.io';
+      const frontendUrl = process.env.FRONTEND_URL || 'https://blipyy.io';
       const dashboardUrl = `${frontendUrl}/dashboard`;
       let aiRecapCount = 0;
 
@@ -387,7 +387,7 @@ class RetentionEmailScheduler {
     try {
       console.log('[EMAIL] Checking for Pro subscribers eligible for review request...');
 
-      const reviewUrl = process.env.REVIEW_URL || `${process.env.FRONTEND_URL || 'https://tradetally.io'}/review`;
+      const reviewUrl = process.env.REVIEW_URL || `${process.env.FRONTEND_URL || 'https://blipyy.io'}/review`;
 
       const query = `
         SELECT

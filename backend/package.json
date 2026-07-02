@@ -1,8 +1,8 @@
 {
-  "name": "tradetally-backend",
+  "name": "blipyy-backend",
   "version": "2.7.5",
   "packageManager": "pnpm@10.13.1",
-  "description": "Backend API for TradeTally trade journaling platform",
+  "description": "Backend API for Blipyy trade journaling platform",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

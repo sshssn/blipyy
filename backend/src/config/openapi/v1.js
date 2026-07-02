@@ -1342,18 +1342,18 @@ function buildV1OpenApiSpec(origin = '') {
   return {
     openapi: '3.0.0',
     info: {
-      title: 'TradeTally Public API',
+      title: 'Blipyy Public API',
       version: packageInfo.version,
-      description: 'Stable public API for TradeTally. `/api/v1` is the supported public contract. `/api` and `/api/v2` remain compatibility surfaces.',
+      description: 'Stable public API for Blipyy. `/api/v1` is the supported public contract. `/api` and `/api/v2` remain compatibility surfaces.',
       contact: {
-        name: 'TradeTally Support',
-        url: 'https://docs.tradetally.io'
+        name: 'Blipyy Support',
+        url: 'https://docs.blipyy.io'
       }
     },
     servers: [
       {
         url: serverUrl,
-        description: 'TradeTally server root'
+        description: 'Blipyy server root'
       }
     ],
     tags: [

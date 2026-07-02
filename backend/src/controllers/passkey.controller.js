@@ -72,7 +72,7 @@ function getExpectedOrigins(req) {
 }
 
 function getRpName() {
-  return process.env.WEBAUTHN_RP_NAME || 'TradeTally';
+  return process.env.WEBAUTHN_RP_NAME || 'Blipyy';
 }
 
 // GET /api/auth/passkey - List user's passkeys

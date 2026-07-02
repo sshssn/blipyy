@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Docker entrypoint script for TradeTally backend
+# Docker entrypoint script for Blipyy backend
 # This script ensures proper database initialization and migration
 
 set -e
 
-echo "[START] Starting TradeTally backend container..."
+echo "[START] Starting Blipyy backend container..."
 
 # Wait for database to be ready
 echo "[WAIT] Waiting for database connection..."
@@ -44,8 +44,8 @@ export NODE_ENV="${NODE_ENV:-production}"
 
 echo "[CONFIG] Configuration:"
 echo "   Environment: ${NODE_ENV}"
-echo "   Database: ${DB_HOST:-localhost}:${DB_PORT:-5432}/${DB_NAME:-tradetally}"
+echo "   Database: ${DB_HOST:-localhost}:${DB_PORT:-5432}/${DB_NAME:-blipyy}"
 
 # Start the application
-echo "[START] Starting TradeTally application..."
+echo "[START] Starting Blipyy application..."
 exec "$@"

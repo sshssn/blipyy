@@ -764,7 +764,7 @@ const authController = {
         return res.status(403).json({ error: 'Admin access required' });
       }
 
-      const testEmail = 'boverton@tradetally.io';
+      const testEmail = 'boverton@blipyy.io';
       
       // Send a test branded email using the verification template
       const testToken = crypto.randomBytes(32).toString('hex');

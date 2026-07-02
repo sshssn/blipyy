@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# TradeTally Complete Restore Script
+# Blipyy Complete Restore Script
 # Restores a full backup created by backup.sh including:
 #   - PostgreSQL database (all tables)
 #   - Trade images/attachments
@@ -40,7 +40,7 @@ DB_HOST="${DB_HOST:-localhost}"
 DB_PORT="${DB_PORT:-5432}"
 DB_USER="${DB_USER:-trader}"
 DB_PASSWORD="${DB_PASSWORD:-}"
-DB_NAME="${DB_NAME:-tradetally}"
+DB_NAME="${DB_NAME:-blipyy}"
 
 # Parse command line arguments
 parse_args() {
@@ -75,7 +75,7 @@ parse_args() {
                 shift
                 ;;
             --help|-h)
-                echo "TradeTally Restore Script"
+                echo "Blipyy Restore Script"
                 echo ""
                 echo "Usage: $0 backup_file.tar.gz [options]"
                 echo ""
@@ -91,7 +91,7 @@ parse_args() {
                 echo "  DB_PORT        Database port (default: 5432)"
                 echo "  DB_USER        Database user (default: trader)"
                 echo "  DB_PASSWORD    Database password"
-                echo "  DB_NAME        Database name (default: tradetally)"
+                echo "  DB_NAME        Database name (default: blipyy)"
                 exit 0
                 ;;
             -*)
@@ -141,12 +141,12 @@ log_error() {
 # Detect Docker containers (supports both prod and dev naming)
 detect_containers() {
     # Try production containers first, then dev
-    if docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^tradetally-db$"; then
-        DB_CONTAINER="tradetally-db"
-        APP_CONTAINER="tradetally-app"
-    elif docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^tradetally-db-dev$"; then
-        DB_CONTAINER="tradetally-db-dev"
-        APP_CONTAINER="tradetally-app-dev"
+    if docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^blipyy-db$"; then
+        DB_CONTAINER="blipyy-db"
+        APP_CONTAINER="blipyy-app"
+    elif docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^blipyy-db-dev$"; then
+        DB_CONTAINER="blipyy-db-dev"
+        APP_CONTAINER="blipyy-app-dev"
     fi
 }
 
@@ -237,10 +237,10 @@ extract_backup() {
         echo ""
         log_info "Backup information:"
         jq -r '.created_at // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Created: {}"
-        jq -r '.tradetally.database.users // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Users: {}"
-        jq -r '.tradetally.database.trades // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Trades: {}"
-        jq -r '.tradetally.database.diary_entries // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Diary entries: {}"
-        jq -r '.tradetally.files.uploads // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Upload files: {}"
+        jq -r '.blipyy.database.users // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Users: {}"
+        jq -r '.blipyy.database.trades // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Trades: {}"
+        jq -r '.blipyy.database.diary_entries // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Diary entries: {}"
+        jq -r '.blipyy.files.uploads // "unknown"' "$TEMP_DIR/manifest.json" | xargs -I {} echo "  Upload files: {}"
         echo ""
     fi
 }
@@ -274,7 +274,7 @@ restore_database() {
         return
     fi
 
-    local dump_file="$TEMP_DIR/database/tradetally.sql"
+    local dump_file="$TEMP_DIR/database/blipyy.sql"
 
     if [ ! -f "$dump_file" ]; then
         log_error "Database dump not found in backup"
@@ -285,7 +285,7 @@ restore_database() {
 
     if [ "$MODE" == "docker" ]; then
         if [ -z "$DB_CONTAINER" ] || ! docker ps --format '{{.Names}}' | grep -q "^${DB_CONTAINER}$"; then
-            log_error "Database container is not running (tried tradetally-db and tradetally-db-dev)"
+            log_error "Database container is not running (tried blipyy-db and blipyy-db-dev)"
             exit 1
         fi
 
@@ -428,7 +428,7 @@ cleanup() {
 main() {
     echo ""
     echo "=========================================="
-    echo "TradeTally Complete Restore"
+    echo "Blipyy Complete Restore"
     echo "=========================================="
     echo ""
 

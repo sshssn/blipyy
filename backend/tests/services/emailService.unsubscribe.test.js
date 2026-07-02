@@ -13,8 +13,8 @@ describe('emailService unsubscribe URLs', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     process.env.JWT_SECRET = 'test-unsubscribe-secret';
-    process.env.FRONTEND_URL = 'https://tradetally.io';
-    process.env.API_BASE_URL = 'https://tradetally.io';
+    process.env.FRONTEND_URL = 'https://blipyy.io';
+    process.env.API_BASE_URL = 'https://blipyy.io';
   });
 
   afterAll(() => {
@@ -26,7 +26,7 @@ describe('emailService unsubscribe URLs', () => {
 
     const url = emailService.getUnsubscribeUrl(userId);
 
-    expect(url).toMatch(/^https:\/\/tradetally\.io\/unsubscribe\?token=/);
+    expect(url).toMatch(/^https:\/\/blipyy\.io\/unsubscribe\?token=/);
     const token = new URL(url).searchParams.get('token');
     expect(unsubscribeService.verifyToken(token)).toBe(userId);
   });
@@ -36,17 +36,17 @@ describe('emailService unsubscribe URLs', () => {
 
     const url = emailService.getOneClickUnsubscribeUrl(userId);
 
-    expect(url).toMatch(/^https:\/\/tradetally\.io\/api\/unsubscribe\?token=/);
+    expect(url).toMatch(/^https:\/\/blipyy\.io\/api\/unsubscribe\?token=/);
     const token = new URL(url).searchParams.get('token');
     expect(unsubscribeService.verifyToken(token)).toBe(userId);
   });
 
   test('does not duplicate /api when API_BASE_URL already includes it', () => {
-    process.env.API_BASE_URL = 'https://tradetally.io/api';
+    process.env.API_BASE_URL = 'https://blipyy.io/api';
 
     const url = emailService.getOneClickUnsubscribeUrl('user-1');
 
-    expect(url).toMatch(/^https:\/\/tradetally\.io\/api\/unsubscribe\?token=/);
+    expect(url).toMatch(/^https:\/\/blipyy\.io\/api\/unsubscribe\?token=/);
     expect(url).not.toContain('/api/api/');
   });
 });

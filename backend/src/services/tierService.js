@@ -47,20 +47,20 @@ class TierService {
       return envOverride;
     }
 
-    // Auto-disable billing for non-tradetally.io domains (self-hosted)
+    // Auto-disable billing for non-blipyy.io domains (self-hosted)
     const frontendUrl = process.env.FRONTEND_URL || '';
 
     // Check host header if provided (for runtime domain detection)
-    // Only ENABLE for tradetally.io, disable for everything else (including localhost for self-hosted)
-    if (hostHeader && !hostHeader.includes('tradetally.io')) {
-      console.log(`[BILLING] Disabled for host: ${hostHeader} (not tradetally.io)`);
+    // Only ENABLE for blipyy.io, disable for everything else (including localhost for self-hosted)
+    if (hostHeader && !hostHeader.includes('blipyy.io')) {
+      console.log(`[BILLING] Disabled for host: ${hostHeader} (not blipyy.io)`);
       return false;
     }
 
     // Check frontend URL if no host header provided
-    // Only ENABLE for tradetally.io, disable for everything else
-    if (!hostHeader && frontendUrl && !frontendUrl.includes('tradetally.io')) {
-      console.log(`[BILLING] Disabled for frontend URL: ${frontendUrl} (not tradetally.io)`);
+    // Only ENABLE for blipyy.io, disable for everything else
+    if (!hostHeader && frontendUrl && !frontendUrl.includes('blipyy.io')) {
+      console.log(`[BILLING] Disabled for frontend URL: ${frontendUrl} (not blipyy.io)`);
       return false;
     }
 

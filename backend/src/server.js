@@ -316,7 +316,7 @@ if (process.env.NODE_ENV !== 'production' || process.env.ENABLE_SWAGGER === 'tru
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, {
     explorer: true,
     customCss: '.swagger-ui .topbar { display: none }',
-    customSiteTitle: 'TradeTally API Documentation',
+    customSiteTitle: 'Blipyy API Documentation',
     swaggerOptions: {
       url: '/api-docs.json',
     },
@@ -816,7 +816,7 @@ function scheduleBackgroundServices(backgroundJobsDisabled) {
 async function startServer() {
   try {
     const { warnings } = validateEnv();
-    logger.info('Starting TradeTally server...');
+    logger.info('Starting Blipyy server...');
     warnings.forEach((warning) => logger.warn(warning, 'startup'));
     const storageHealth = await storageHealthService.getHealth();
     storageHealth.warnings.forEach((warning) => logger.warn(warning, 'startup'));
@@ -848,7 +848,7 @@ async function startServer() {
 
     // Start the server
     app.listen(PORT, () => {
-      logger.info(`✓ TradeTally server running on port ${PORT}`);
+      logger.info(`✓ Blipyy server running on port ${PORT}`);
       logger.info(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
       logger.info(`✓ Log level: ${process.env.LOG_LEVEL || 'INFO'}`);
       scheduleBackgroundServices(backgroundJobsDisabled);

@@ -3,7 +3,7 @@ const { fetchCurrentPriceForSymbol, computeUnrealized } = require('../services/o
 const { renderTradeCardPng } = require('../services/shareCardImageService');
 
 const FALLBACK_IMAGE = '/social-preview-v3.png';
-const SITE_TITLE = 'TradeTally - Trading Journal with Behavioral Analytics';
+const SITE_TITLE = 'Blipyy - Trading Journal with Behavioral Analytics';
 const SITE_DESCRIPTION = 'Free trading journal that detects revenge trading, overconfidence, and behavioral patterns. Auto-sync Schwab and IBKR. Open source and self-hostable.';
 
 function num(value) {
@@ -52,10 +52,10 @@ function buildCardText(trade) {
   else result = isOpen ? 'open' : (num(trade.pnl) >= 0 ? 'win' : 'loss');
 
   const headline = [symbol, side, result].filter(Boolean).join(' ');
-  const title = `${headline}${isOpen ? ' (open)' : ''} · TradeTally`;
+  const title = `${headline}${isOpen ? ' (open)' : ''} · Blipyy`;
   const description = isOpen
-    ? `Open ${side.toLowerCase()} position on ${symbol}, shared from TradeTally.`
-    : `${side ? side.charAt(0) + side.slice(1).toLowerCase() + ' ' : ''}trade on ${symbol} (${result}), shared from TradeTally.`;
+    ? `Open ${side.toLowerCase()} position on ${symbol}, shared from Blipyy.`
+    : `${side ? side.charAt(0) + side.slice(1).toLowerCase() + ' ' : ''}trade on ${symbol} (${result}), shared from Blipyy.`;
   return { title, description };
 }
 
@@ -73,7 +73,7 @@ function renderOgHtml({ title, description, image, canonical }) {
 <meta name="description" content="${d}">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="TradeTally">
+<meta property="og:site_name" content="Blipyy">
 <meta property="og:title" content="${t}">
 <meta property="og:description" content="${d}">
 <meta property="og:url" content="${url}">
@@ -83,7 +83,7 @@ function renderOgHtml({ title, description, image, canonical }) {
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@TradeTallyIO">
+<meta name="twitter:site" content="@BlipyyIO">
 <meta name="twitter:title" content="${t}">
 <meta name="twitter:description" content="${d}">
 <meta name="twitter:image" content="${img}">

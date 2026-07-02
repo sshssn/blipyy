@@ -1,11 +1,11 @@
-# Robots.txt for TradeTally
+# Robots.txt for Blipyy
 # https://www.robotstxt.org/robotstxt.html
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://tradetally.io/sitemap.xml
+Sitemap: https://blipyy.io/sitemap.xml
 
 # Block access to API endpoints
 Disallow: /api/

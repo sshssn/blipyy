@@ -2,12 +2,12 @@
 
 set -euo pipefail
 
-echo "[DEPLOY] TradeTally Quick Deploy Script"
+echo "[DEPLOY] Blipyy Quick Deploy Script"
 echo "======================================="
 
-REPO_RAW_URL="https://raw.githubusercontent.com/GeneBO98/tradetally/refs/heads/main"
-ENV_TEMPLATE_URL="https://raw.githubusercontent.com/GeneBO98/tradetally/main/.env.example"
-DEPLOY_DIR="${TRADETALLY_DEPLOY_DIR:-tradetally-deployment}"
+REPO_RAW_URL="https://raw.githubusercontent.com/GeneBO98/blipyy/refs/heads/main"
+ENV_TEMPLATE_URL="https://raw.githubusercontent.com/GeneBO98/blipyy/main/.env.example"
+DEPLOY_DIR="${BLIPYY_DEPLOY_DIR:-blipyy-deployment}"
 
 if ! command -v docker > /dev/null 2>&1; then
     echo "[ERROR] Docker is not installed. Please install Docker first."
@@ -158,7 +158,7 @@ fi
 
 echo ""
 echo "[CONFIG] Deployment settings"
-prompt_env "INSTANCE_URL" "Public TradeTally URL" "http://localhost:8080"
+prompt_env "INSTANCE_URL" "Public Blipyy URL" "http://localhost:8080"
 if is_placeholder_value "$(get_env_value APP_URL || true)"; then
     set_env_value "APP_URL" "$(get_env_value INSTANCE_URL)"
 fi
@@ -192,21 +192,21 @@ echo ""
 echo "[DEPLOY] Pulling images..."
 $DOCKER_COMPOSE pull
 
-echo "[DEPLOY] Starting TradeTally..."
+echo "[DEPLOY] Starting Blipyy..."
 $DOCKER_COMPOSE up -d
 
 echo -n "[WAIT] Waiting for application container..."
-until [ "$(docker inspect -f '{{.State.Running}}' tradetally-app 2>/dev/null || echo false)" = "true" ]; do
+until [ "$(docker inspect -f '{{.State.Running}}' blipyy-app 2>/dev/null || echo false)" = "true" ]; do
     echo -n "."
     sleep 1
 done
 echo " running"
 
 echo ""
-echo "[SUCCESS] TradeTally deployment complete"
+echo "[SUCCESS] Blipyy deployment complete"
 echo ""
 echo "[INFO] Access your application:"
-echo "   TradeTally: $(get_env_value INSTANCE_URL)"
+echo "   Blipyy: $(get_env_value INSTANCE_URL)"
 echo ""
 echo "[INFO] Create your first user account from the registration page."
 echo ""

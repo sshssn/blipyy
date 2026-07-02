@@ -102,7 +102,7 @@ class PushNotificationService {
           };
           
           // Set topic (bundle ID)
-          notification.topic = device.bundle_id || 'com.tradetally.app';
+          notification.topic = device.bundle_id || 'com.blipyy.app';
           
           // Send notification
           const result = await this.apnProvider.send(notification, device.device_token);
@@ -236,7 +236,7 @@ class PushNotificationService {
   }
 
 
-  async testNotification(userId, testMessage = 'Test notification from TradeTally') {
+  async testNotification(userId, testMessage = 'Test notification from Blipyy') {
     const notificationData = {
       title: 'Test Notification',
       body: testMessage,

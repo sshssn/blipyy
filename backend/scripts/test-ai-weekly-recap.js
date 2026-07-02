@@ -32,7 +32,7 @@ const AIService = require('../src/utils/aiService');
 const EmailService = require('../src/services/emailService');
 
 const TEST_USER = {
-  email: 'weekly-digest-test@tradetally.test',
+  email: 'weekly-digest-test@blipyy.test',
   username: 'weekly_digest_test',
   fullName: 'Weekly Digest Test',
 };
@@ -213,7 +213,7 @@ async function runScenario(scenarioName, { skipAi }) {
   console.log(`[AGG] trades=${agg.tradeCount} pnl=$${agg.totalPnL.toFixed(2)} W/L=${agg.winCount}/${agg.lossCount} avgHold=${agg.avgHoldMinutes ? Math.round(agg.avgHoldMinutes)+'m' : 'n/a'}`);
   console.log(`      topLoss=${agg.topLossSymbol || '(none)'} ($${agg.topLossPnL?.toFixed(2) || '0'}) topWin=${agg.topWinSymbol || '(none)'} ($${agg.topWinPnL?.toFixed(2) || '0'})`);
 
-  const frontendUrl = process.env.FRONTEND_URL || 'https://tradetally.io';
+  const frontendUrl = process.env.FRONTEND_URL || 'https://blipyy.io';
   const highlight = weeklyInsights.pickHighlight(agg, { startDate: startStr, endDate: endStr, frontendUrl });
   console.log(`[HIGHLIGHT] type=${highlight.type} headline="${highlight.headline}"`);
 

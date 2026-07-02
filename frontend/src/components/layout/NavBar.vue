@@ -4,8 +4,8 @@
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <router-link :to="authStore.isAuthenticated ? '/dashboard' : '/'" class="flex items-center px-2 py-2 text-xl font-bold text-primary-600">
-            <img src="/favicon.svg" alt="TradeTally Logo" class="h-8 w-auto mr-2" />
-            TradeTally
+            <img src="/favicon.svg" alt="Blipyy Logo" class="h-8 w-auto mr-2" />
+            Blipyy
           </router-link>
 
           <div class="hidden sm:ml-12 sm:flex sm:space-x-2">
@@ -320,124 +320,100 @@ const expandedSections = ref({})
 
 const baseNavigation = [
   { 
-    name: 'Dashboard', 
+    name: 'Overview', 
     type: 'dropdown',
     items: [
       { 
         name: 'Trading Dashboard', 
         to: '/dashboard', 
         route: 'dashboard',
-        description: 'Overview of your trading performance and statistics'
+        description: 'Real-time metrics, P&L, win rate, streaks, and risk scores'
       },
       {
-        name: 'Trading Journal',
-        to: '/diary',
-        route: 'diary',
-        description: 'Daily market notes, trade setups, and reflections'
+        name: 'Market Brief',
+        to: '/market-brief',
+        route: 'market-brief',
+        description: 'Daily macro bias, BTC/ETH/SOL trends, funding, OI, and news'
       },
       {
-        name: 'Account & Cashflow',
-        to: '/cashflow',
-        route: 'cashflow',
-        description: 'Track brokerage accounts and daily cash movement'
+        name: 'SOL Dashboard',
+        to: '/sol',
+        route: 'sol-dashboard',
+        description: 'Dedicated SOLUSDT analysis — trend, liquidity, OI, funding'
       },
       {
-        name: 'Leaderboard', 
-        to: '/leaderboard', 
-        route: 'leaderboard',
-        description: 'Track achievements, challenges, and compete with peers'
+        name: 'Weekly Review',
+        to: '/weekly-review',
+        route: 'weekly-review',
+        description: 'Auto-generated weekly performance summary and action plan'
       },
       {
-        name: 'Public Trades',
-        to: '/public',
-        route: 'public-trades',
-        description: 'Browse public trades shared by the community'
-      },
-      {
-        name: 'Community Forum',
-        href: 'https://tradetally.io/forum',
-        external: true,
-        description: 'Discuss strategies and connect with fellow traders'
+        name: 'Monthly Review',
+        to: '/monthly-review',
+        route: 'monthly-review',
+        description: 'Professional monthly PDF report with charts and heatmaps'
       }
     ]
   },
-  { name: 'Trades', to: '/trades', route: 'trades' },
+  { name: 'New Trade', to: '/trades/new', route: 'trade-create' },
+  { name: 'Trade History', to: '/trades', route: 'trades' },
   {
-    name: 'Metrics',
+    name: 'AI Tools',
+    type: 'dropdown',
+    items: [
+      {
+        name: 'AI Pre-Trade Analysis',
+        to: '/ai/pre-trade',
+        route: 'ai-pre-trade',
+        description: 'Get AI analysis before entering a trade — grade, confidence, risk rating'
+      },
+      {
+        name: 'AI Post-Trade Review',
+        to: '/ai/post-trade',
+        route: 'ai-post-trade',
+        description: 'Review closed trades with AI — mistakes, lessons, execution quality'
+      },
+      {
+        name: 'AI Coach',
+        to: '/ai/coach',
+        route: 'ai-coach',
+        description: 'Your personal trading mentor that learns from YOUR history'
+      }
+    ]
+  },
+  {
+    name: 'Analytics',
     type: 'dropdown',
     items: [
       {
         name: 'Performance Metrics',
         to: '/metrics',
         route: 'metrics',
-        description: 'Trading performance metrics and statistics'
+        description: 'Trading performance metrics, R-multiple, expectancy, and profit factor'
       },
       {
-        name: 'Monthly Performance',
-        to: '/metrics/monthly',
-        route: 'monthly-performance',
-        description: 'Month-by-month performance breakdown and comparison'
+        name: 'Edge Report',
+        to: '/metrics/edge-report',
+        route: 'edge-report',
+        description: 'Deep statistical analysis of your trading edge'
       },
       {
-        name: 'Partial Exit Analytics',
-        to: '/metrics/partial-exits',
-        route: 'partial-exit-analytics',
-        description: 'Analyze hit rates and performance per partial exit level',
-        badge: { type: 'pro', text: 'Pro' }
+        name: 'Signal Engine',
+        to: '/signals',
+        route: 'signal-engine',
+        description: 'Score trade opportunities — trend, volume, VWAP, funding, OI'
+      },
+      {
+        name: 'Rule Engine',
+        to: '/rules',
+        route: 'rule-engine',
+        description: 'Custom trading rules — get warned when you violate them'
       },
       {
         name: 'Behavioral Analytics',
         to: '/metrics/behavioral',
         route: 'behavioral-analytics',
         description: 'Detect revenge trading and emotional patterns',
-        badge: { type: 'pro', text: 'Pro' }
-      },
-      {
-        name: 'Health Analytics',
-        to: '/metrics/health',
-        route: 'health-analytics',
-        description: 'Correlate health metrics with trading performance',
-        badge: { type: 'pro', text: 'Pro' }
-      }
-    ]
-  },
-  {
-    name: 'Analysis',
-    type: 'dropdown',
-    items: [
-      {
-        name: 'Investments',
-        to: '/analysis',
-        route: 'analysis',
-        description: 'Stock screening, portfolio tracking, and fundamental analysis',
-        badge: { type: 'pro', text: 'Pro' }
-      },
-      {
-        name: 'Watchlists',
-        to: '/markets',
-        route: 'markets',
-        description: 'Track stocks and market data with custom watchlists',
-        badge: { type: 'pro', text: 'Pro' }
-      },
-      {
-        name: 'Web Mentions',
-        to: '/web-mentions',
-        route: 'web-mentions',
-        description: 'Monitor curated financial sources for portfolio and watchlist mentions',
-        badge: { type: 'pro', text: 'Pro' }
-      },
-      {
-        name: 'Trade Management',
-        to: '/analysis/trade-management',
-        route: 'trade-management',
-        description: 'Analyze trade execution with R-Multiple performance metrics',
-        badge: { type: 'pro', text: 'Pro' }
-      },
-      {
-        name: 'Playbooks & Grading',
-        to: '/analysis/playbooks',
-        route: 'playbooks',
-        description: 'Create structured setups and manual grading profiles',
         badge: { type: 'pro', text: 'Pro' }
       }
     ]

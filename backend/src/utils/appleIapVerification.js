@@ -59,7 +59,7 @@ function verifyCertificateChain(header) {
 }
 
 function getAllowedBundleIds() {
-  const configured = process.env.APPLE_BUNDLE_IDS || process.env.APPLE_BUNDLE_ID || 'com.tradetally.app';
+  const configured = process.env.APPLE_BUNDLE_IDS || process.env.APPLE_BUNDLE_ID || 'com.blipyy.app';
   return configured.split(',').map(value => value.trim()).filter(Boolean);
 }
 

@@ -334,7 +334,7 @@ function isDeliverableEmail(email) {
 
 function buildEmailContent(username) {
   const safeName = username || 'there';
-  const dashboardUrl = `${process.env.FRONTEND_URL || 'https://tradetally.io'}/import`;
+  const dashboardUrl = `${process.env.FRONTEND_URL || 'https://blipyy.io'}/import`;
 
   const html = EmailService.getBaseTemplate(
     'Trade import refresh available',
@@ -346,7 +346,7 @@ function buildEmailContent(username) {
         Hi ${safeName},
       </p>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 18px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        We recently improved several trade import and parsing paths in TradeTally. If you imported trades previously, a fresh import may produce cleaner trade grouping and more up-to-date performance calculations.
+        We recently improved several trade import and parsing paths in Blipyy. If you imported trades previously, a fresh import may produce cleaner trade grouping and more up-to-date performance calculations.
       </p>
       <p style="color: #71717a; font-size: 15px; line-height: 1.6; margin: 0 0 18px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         No action is required, but if you want your account to reflect the latest importer improvements, we recommend re-importing your recent broker files.
@@ -365,7 +365,7 @@ function buildEmailContent(username) {
   const text = [
     `Hi ${safeName},`,
     '',
-    'We recently improved several trade import and parsing paths in TradeTally.',
+    'We recently improved several trade import and parsing paths in Blipyy.',
     'If you imported trades previously, a fresh import may produce cleaner trade grouping and more up-to-date performance calculations.',
     '',
     'No action is required, but if you want your account to reflect the latest importer improvements, we recommend re-importing your recent broker files.',
@@ -376,7 +376,7 @@ function buildEmailContent(username) {
   ].join('\n');
 
   return {
-    subject: 'A quick TradeTally import update',
+    subject: 'A quick Blipyy import update',
     html,
     text
   };
@@ -416,13 +416,13 @@ async function sendEmails(recipients) {
   }
 
   const transporter = EmailService.createTransporter();
-  const fromAddress = process.env.EMAIL_FROM || process.env.EMAIL_USER || 'noreply@tradetally.io';
+  const fromAddress = process.env.EMAIL_FROM || process.env.EMAIL_USER || 'noreply@blipyy.io';
 
   for (const recipient of recipients) {
     const { subject, html, text } = buildEmailContent(recipient.username);
     const mailOptions = {
       from: {
-        name: 'TradeTally',
+        name: 'Blipyy',
         address: fromAddress
       },
       to: recipient.email,

@@ -1,5 +1,5 @@
 /**
- * Regression coverage for the TradeStation API-payload -> TradeTally trade mapping layer.
+ * Regression coverage for the TradeStation API-payload -> Blipyy trade mapping layer.
  *
  * Pins the behavior of:
  *  - fetchExecutions (orders payload -> flattened execution legs with account tagging)

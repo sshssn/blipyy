@@ -94,7 +94,7 @@ class BackupService {
     await this.ensureBackupDirectory();
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupFileName = `tradetally-backup-${timestamp}.json`;
+    const backupFileName = `blipyy-backup-${timestamp}.json`;
     const backupFilePath = path.join(this.backupDir, backupFileName);
 
     try {

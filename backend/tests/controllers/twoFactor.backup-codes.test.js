@@ -7,7 +7,7 @@ jest.mock('qrcode', () => ({
 jest.mock('speakeasy', () => ({
   generateSecret: jest.fn(() => ({
     base32: 'TESTSECRET',
-    otpauth_url: 'otpauth://totp/TradeTally'
+    otpauth_url: 'otpauth://totp/Blipyy'
   }))
 }));
 

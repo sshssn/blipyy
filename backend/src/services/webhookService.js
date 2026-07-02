@@ -368,7 +368,7 @@ class WebhookService {
           type: 'webhook.test',
           occurredAt: now,
           payload: {
-            message: 'This is a webhook test delivery from TradeTally.',
+            message: 'This is a webhook test delivery from Blipyy.',
             webhookId: webhook.id
           },
           metadata: {
@@ -425,10 +425,10 @@ class WebhookService {
 
     const requestHeaders = {
       'Content-Type': 'application/json',
-      'User-Agent': 'TradeTally-Webhooks/1.0',
-      'X-TradeTally-Event': event.type,
-      'X-TradeTally-Timestamp': timestamp,
-      'X-TradeTally-Signature': `sha256=${signature}`,
+      'User-Agent': 'Blipyy-Webhooks/1.0',
+      'X-Blipyy-Event': event.type,
+      'X-Blipyy-Timestamp': timestamp,
+      'X-Blipyy-Signature': `sha256=${signature}`,
       ...(webhook.custom_headers || {})
     };
 

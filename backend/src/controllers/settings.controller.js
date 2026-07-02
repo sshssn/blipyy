@@ -937,7 +937,7 @@ const settingsController = {
                   'Admin settings:', adminSettings ? Object.keys(adminSettings).length : 0);
 
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', `attachment; filename=tradetally-export-${new Date().toISOString().split('T')[0]}.json`);
+      res.setHeader('Content-Disposition', `attachment; filename=blipyy-export-${new Date().toISOString().split('T')[0]}.json`);
       res.json(exportData);
     } catch (error) {
       console.error('[EXPORT] Export failed:', error);
@@ -981,13 +981,13 @@ const settingsController = {
           hasTrades: !!importData.trades,
           keys: Object.keys(importData)
         });
-        return res.status(400).json({ error: 'Invalid TradeTally export file' });
+        return res.status(400).json({ error: 'Invalid Blipyy export file' });
       }
 
-      // NOTE: No tier limit check for TradeTally export imports
+      // NOTE: No tier limit check for Blipyy export imports
       // This is for data portability - users should be able to restore their own exported data
       // The tier limit (100 trades per import for free tier) only applies to CSV broker imports
-      console.log(`[IMPORT] Processing TradeTally export with ${importData.trades?.length || 0} trades (no tier limit for exports)`);
+      console.log(`[IMPORT] Processing Blipyy export with ${importData.trades?.length || 0} trades (no tier limit for exports)`);
 
       // Ensure database schema is ready before import
       try {
@@ -1801,7 +1801,7 @@ const settingsController = {
 
         if (tradesAdded > 0) {
           try {
-            await OptionStrategyGroupingService.rebuildUserGroupsSafe(userId, 'TradeTally backup import');
+            await OptionStrategyGroupingService.rebuildUserGroupsSafe(userId, 'Blipyy backup import');
             await AnalyticsCache.invalidate(userId);
           } catch (cacheErr) {
             console.warn(`[IMPORT] AnalyticsCache invalidation failed: ${cacheErr.message}`);

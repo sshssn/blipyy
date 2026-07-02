@@ -56,7 +56,7 @@ describe('InvoiceNinjaSyncService.syncStripeInvoiceRevenue', () => {
       status_transitions: { paid_at: 1775683200 },
       lines: {
         data: [{
-          description: 'TradeTally Pro Monthly',
+          description: 'Blipyy Pro Monthly',
           price: { recurring: { interval: 'month' } }
         }]
       }
@@ -74,7 +74,7 @@ describe('InvoiceNinjaSyncService.syncStripeInvoiceRevenue', () => {
         line_items: [
           expect.objectContaining({
             cost: 8,
-            product_key: 'tradetally_pro_monthly'
+            product_key: 'blipyy_pro_monthly'
           })
         ]
       })

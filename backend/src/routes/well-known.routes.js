@@ -4,7 +4,7 @@ const serverController = require('../controllers/v1/server.controller');
 const oauth2Controller = require('../controllers/oauth2.controller');
 
 // Well-known endpoints for mobile app discovery
-router.get('/tradetally-config.json', serverController.getWellKnownConfig);
+router.get('/blipyy-config.json', serverController.getWellKnownConfig);
 
 // OpenID Connect Discovery
 router.get('/openid-configuration', oauth2Controller.openidConfiguration);
@@ -17,7 +17,7 @@ router.get('/apple-app-site-association', (req, res) => {
     res.set('Content-Type', 'application/json');
     res.json({
         webcredentials: {
-            apps: ['24Q6933PHJ.com.tradetally.ios']
+            apps: ['24Q6933PHJ.com.blipyy.ios']
         }
     });
 });

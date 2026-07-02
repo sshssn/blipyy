@@ -16,8 +16,8 @@ const EmailService = require('../src/services/emailService');
 const { pickHighlight } = require('../src/services/weeklyDigest/insights');
 
 const OUT_DIR = '/tmp/weekly-digest-scenarios';
-const RECIPIENT = process.env.TEST_RECIPIENT || 'boverton@tradetally.io';
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://tradetally.io';
+const RECIPIENT = process.env.TEST_RECIPIENT || 'boverton@blipyy.io';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://blipyy.io';
 
 // Synthetic week window (used only for CTA deep-links).
 const START = '2026-05-04';

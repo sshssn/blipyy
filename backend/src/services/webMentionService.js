@@ -312,7 +312,7 @@ class WebMentionService {
       ...row,
       trusted: true,
       trust_note: row.source_type === 'finnhub_cache'
-        ? 'Uses TradeTally cached market news data'
+        ? 'Uses Blipyy cached market news data'
         : 'Curated syndication feed selected for trusted, repeatable crawling'
     }));
   }

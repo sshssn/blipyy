@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# TradeTally Complete Backup Script
+# Blipyy Complete Backup Script
 # Creates a full backup of all user data including:
 #   - PostgreSQL database (all tables)
 #   - Trade images/attachments
@@ -27,7 +27,7 @@ NC='\033[0m' # No Color
 # Default configuration
 BACKUP_DIR="${BACKUP_OUTPUT:-./backups}"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-BACKUP_NAME="tradetally_backup_${TIMESTAMP}"
+BACKUP_NAME="blipyy_backup_${TIMESTAMP}"
 TEMP_DIR="/tmp/${BACKUP_NAME}"
 MODE="auto"
 
@@ -40,7 +40,7 @@ DB_HOST="${DB_HOST:-localhost}"
 DB_PORT="${DB_PORT:-5432}"
 DB_USER="${DB_USER:-trader}"
 DB_PASSWORD="${DB_PASSWORD:-}"
-DB_NAME="${DB_NAME:-tradetally}"
+DB_NAME="${DB_NAME:-blipyy}"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -58,7 +58,7 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         --help|-h)
-            echo "TradeTally Backup Script"
+            echo "Blipyy Backup Script"
             echo ""
             echo "Usage: $0 [options]"
             echo ""
@@ -73,7 +73,7 @@ while [[ $# -gt 0 ]]; do
             echo "  DB_PORT        Database port (default: 5432)"
             echo "  DB_USER        Database user (default: trader)"
             echo "  DB_PASSWORD    Database password"
-            echo "  DB_NAME        Database name (default: tradetally)"
+            echo "  DB_NAME        Database name (default: blipyy)"
             exit 0
             ;;
         *)
@@ -103,12 +103,12 @@ log_error() {
 # Detect Docker containers (supports both prod and dev naming)
 detect_containers() {
     # Try production containers first, then dev
-    if docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^tradetally-db$"; then
-        DB_CONTAINER="tradetally-db"
-        APP_CONTAINER="tradetally-app"
-    elif docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^tradetally-db-dev$"; then
-        DB_CONTAINER="tradetally-db-dev"
-        APP_CONTAINER="tradetally-app-dev"
+    if docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^blipyy-db$"; then
+        DB_CONTAINER="blipyy-db"
+        APP_CONTAINER="blipyy-app"
+    elif docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^blipyy-db-dev$"; then
+        DB_CONTAINER="blipyy-db-dev"
+        APP_CONTAINER="blipyy-app-dev"
     fi
 }
 
@@ -169,12 +169,12 @@ create_backup_dirs() {
 backup_database() {
     log_info "Backing up PostgreSQL database..."
 
-    local dump_file="$TEMP_DIR/database/tradetally.sql"
+    local dump_file="$TEMP_DIR/database/blipyy.sql"
 
     if [ "$MODE" == "docker" ]; then
         # Docker mode: use docker exec
         if [ -z "$DB_CONTAINER" ] || ! docker ps --format '{{.Names}}' | grep -q "^${DB_CONTAINER}$"; then
-            log_error "Database container is not running (tried tradetally-db and tradetally-db-dev)"
+            log_error "Database container is not running (tried blipyy-db and blipyy-db-dev)"
             exit 1
         fi
 
@@ -356,7 +356,7 @@ create_manifest() {
   "created_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "created_by": "$(whoami)@$(hostname)",
   "backup_mode": "$MODE",
-  "tradetally": {
+  "blipyy": {
     "database": {
       "name": "$DB_NAME",
       "users": $user_count,
@@ -369,7 +369,7 @@ create_manifest() {
     }
   },
   "contents": {
-    "database": "database/tradetally.sql",
+    "database": "database/blipyy.sql",
     "uploads": "uploads/",
     "data": "data/",
     "config": "config/"
@@ -421,7 +421,7 @@ cleanup() {
 main() {
     echo ""
     echo "=========================================="
-    echo "TradeTally Complete Backup"
+    echo "Blipyy Complete Backup"
     echo "=========================================="
     echo ""
 

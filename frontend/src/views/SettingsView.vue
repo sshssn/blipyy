@@ -675,7 +675,7 @@
                             class="text-sm text-gray-600 dark:text-gray-400 mb-6"
                         >
                             Access comprehensive API documentation for
-                            integrating with TradeTally programmatically.
+                            integrating with Blipyy programmatically.
                         </p>
 
                         <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -710,13 +710,13 @@
                     </div>
                 </div>
 
-                <!-- About TradeTally -->
+                <!-- About Blipyy -->
                 <div class="card">
                     <div class="card-body">
                         <h3
                             class="text-lg font-medium text-gray-900 dark:text-white mb-6"
                         >
-                            About TradeTally
+                            About Blipyy
                         </h3>
 
                         <div class="space-y-4">
@@ -2600,7 +2600,7 @@
                                         class="text-sm text-gray-600 dark:text-gray-400 mb-4"
                                     >
                                         Download a complete backup of your
-                                        TradeTally data including trades, diary
+                                        Blipyy data including trades, diary
                                         entries, playbook entries, settings,
                                         tags, and equity history.
                                     </p>
@@ -2704,7 +2704,7 @@
                                     <p
                                         class="text-sm text-gray-600 dark:text-gray-400 mb-4"
                                     >
-                                        Import previously exported TradeTally
+                                        Import previously exported Blipyy
                                         data. This will merge with your existing
                                         data without duplicating trades.
                                     </p>
@@ -3977,7 +3977,7 @@ async function exportUserData() {
 
         // Generate filename with current date
         const today = new Date().toISOString().split("T")[0];
-        link.download = `tradetally-export-${today}.json`;
+        link.download = `blipyy-export-${today}.json`;
 
         // Trigger download
         document.body.appendChild(link);
@@ -4015,7 +4015,7 @@ async function exportTradesToCSV() {
 
         // Get filename from Content-Disposition header or use default
         const contentDisposition = response.headers["content-disposition"];
-        let filename = "tradetally-export.csv";
+        let filename = "blipyy-export.csv";
         if (contentDisposition) {
             const match = contentDisposition.match(/filename="(.+)"/);
             if (match) filename = match[1];

@@ -243,7 +243,7 @@ async function runImport(payload, { schema = SCHEMA, role = 'user' } = {}) {
     user: { id: USER_ID, role },
     file: {
       buffer: Buffer.from(json),
-      originalname: 'tradetally-export.json',
+      originalname: 'blipyy-export.json',
       size: json.length,
       mimetype: 'application/json'
     }
@@ -515,7 +515,7 @@ describe('settings controller v3.0 export/import', () => {
     await settingsController.importUserData(req, res, jest.fn());
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Invalid TradeTally export file' });
+    expect(res.json).toHaveBeenCalledWith({ error: 'Invalid Blipyy export file' });
     expect(db.connect).not.toHaveBeenCalled();
   });
 });

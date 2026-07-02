@@ -1,6 +1,6 @@
 # Migration Guide: Docker to Native Services
 
-This guide will help you migrate TradeTally from Docker containers to running natively with Node.js and PostgreSQL as system services.
+This guide will help you migrate Blipyy from Docker containers to running natively with Node.js and PostgreSQL as system services.
 
 ## Prerequisites
 
@@ -19,17 +19,17 @@ First, create a backup of your PostgreSQL database from the Docker container:
 
 ```bash
 # Create backup directory
-mkdir -p ~/tradetally-migration
+mkdir -p ~/blipyy-migration
 
 # Export the database from Docker
-docker exec tradetally-db-dev pg_dump -U trader -d tradetally > ~/tradetally-migration/tradetally_backup.sql
+docker exec blipyy-db-dev pg_dump -U trader -d blipyy > ~/blipyy-migration/blipyy_backup.sql
 
 # Export users and roles (if custom)
-docker exec tradetally-db-dev pg_dumpall -U trader --roles-only > ~/tradetally-migration/roles_backup.sql
+docker exec blipyy-db-dev pg_dumpall -U trader --roles-only > ~/blipyy-migration/roles_backup.sql
 
 # Copy any uploaded files from Docker volumes
-docker cp tradetally-app-dev:/app/backend/src/data ~/tradetally-migration/app_data
-docker cp tradetally-app:/app/backend/src/logs ~/tradetally-migration/app_logs
+docker cp blipyy-app-dev:/app/backend/src/data ~/blipyy-migration/app_data
+docker cp blipyy-app:/app/backend/src/logs ~/blipyy-migration/app_logs
 ```
 
 ### 1.2 Export Environment Variables
@@ -38,10 +38,10 @@ Save your current environment configuration:
 
 ```bash
 # Copy your .env file
-cp .env ~/tradetally-migration/.env.backup
+cp .env ~/blipyy-migration/.env.backup
 
 # Export Docker environment (for reference)
-docker exec tradetally-app env > ~/tradetally-migration/docker_env.txt
+docker exec blipyy-app env > ~/blipyy-migration/docker_env.txt
 ```
 
 ## Step 2: Install Native Services
@@ -72,7 +72,7 @@ npm --version
 
 ### 2.3 Install pnpm and PM2
 
-TradeTally uses pnpm for dependency installation.
+Blipyy uses pnpm for dependency installation.
 
 ```bash
 sudo npm install -g pnpm@10.13.1
@@ -96,8 +96,8 @@ sudo -u postgres psql
 
 # In PostgreSQL prompt:
 CREATE USER trader WITH PASSWORD 'your_secure_password';
-CREATE DATABASE tradetally OWNER trader;
-GRANT ALL PRIVILEGES ON DATABASE tradetally TO trader;
+CREATE DATABASE blipyy OWNER trader;
+GRANT ALL PRIVILEGES ON DATABASE blipyy TO trader;
 \q
 ```
 
@@ -105,11 +105,11 @@ GRANT ALL PRIVILEGES ON DATABASE tradetally TO trader;
 
 ```bash
 # Import the database backup
-sudo -u postgres psql tradetally < ~/tradetally-migration/tradetally_backup.sql
+sudo -u postgres psql blipyy < ~/blipyy-migration/blipyy_backup.sql
 
 # Set proper ownership
-sudo -u postgres psql -c "ALTER DATABASE tradetally OWNER TO trader;"
-sudo -u postgres psql -d tradetally -c "REASSIGN OWNED BY postgres TO trader;"
+sudo -u postgres psql -c "ALTER DATABASE blipyy OWNER TO trader;"
+sudo -u postgres psql -d blipyy -c "REASSIGN OWNED BY postgres TO trader;"
 ```
 
 ### 3.3 Configure PostgreSQL Access
@@ -121,40 +121,40 @@ Edit PostgreSQL configuration:
 sudo nano /etc/postgresql/16/main/pg_hba.conf
 
 # Add this line for local connections:
-local   tradetally      trader                                  md5
-host    tradetally      trader          127.0.0.1/32            md5
-host    tradetally      trader          ::1/128                 md5
+local   blipyy      trader                                  md5
+host    blipyy      trader          127.0.0.1/32            md5
+host    blipyy      trader          ::1/128                 md5
 
 # Restart PostgreSQL
 sudo systemctl restart postgresql
 ```
 
-## Step 4: Set Up TradeTally Application
+## Step 4: Set Up Blipyy Application
 
 ### 4.1 Prepare Application Directory
 
 ```bash
 # Create application directory
-sudo mkdir -p /opt/tradetally
-sudo chown $USER:$USER /opt/tradetally
+sudo mkdir -p /opt/blipyy
+sudo chown $USER:$USER /opt/blipyy
 
 # Clone or copy your application
-cp -r ~tradetally/* /opt/tradetally/
+cp -r ~blipyy/* /opt/blipyy/
 
 # Restore data and logs
-cp -r ~/tradetally-migration/app_data /opt/tradetally/backend/src/
-cp -r ~/tradetally-migration/app_logs /opt/tradetally/backend/src/
+cp -r ~/blipyy-migration/app_data /opt/blipyy/backend/src/
+cp -r ~/blipyy-migration/app_logs /opt/blipyy/backend/src/
 ```
 
 ### 4.2 Install Dependencies
 
 ```bash
 # Backend dependencies
-cd /opt/tradetally
-pnpm install --filter tradetally-backend --prod --frozen-lockfile
+cd /opt/blipyy
+pnpm install --filter blipyy-backend --prod --frozen-lockfile
 
 # Frontend build
-pnpm install --filter tradetally-frontend --frozen-lockfile
+pnpm install --filter blipyy-frontend --frozen-lockfile
 pnpm --dir frontend run build
 ```
 
@@ -164,7 +164,7 @@ Create production environment file:
 
 ```bash
 # Create .env file
-nano /opt/tradetally/backend/.env
+nano /opt/blipyy/backend/.env
 ```
 
 Add the following (adjust values as needed):
@@ -175,7 +175,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USER=trader
 DB_PASSWORD=your_secure_password
-DB_NAME=tradetally
+DB_NAME=blipyy
 
 # Application Configuration
 NODE_ENV=production
@@ -205,24 +205,24 @@ REGISTRATION_MODE=open
 Create PM2 ecosystem file:
 
 ```bash
-nano /opt/tradetally/ecosystem.config.js
+nano /opt/blipyy/ecosystem.config.js
 ```
 
 ```javascript
 module.exports = {
   apps: [{
-    name: 'tradetally-backend',
-    script: '/opt/tradetally/backend/src/server.js',
-    cwd: '/opt/tradetally/backend',
+    name: 'blipyy-backend',
+    script: '/opt/blipyy/backend/src/server.js',
+    cwd: '/opt/blipyy/backend',
     instances: 2,
     exec_mode: 'cluster',
     env: {
       NODE_ENV: 'production',
       PORT: 3000
     },
-    error_file: '/opt/tradetally/backend/src/logs/pm2-error.log',
-    out_file: '/opt/tradetally/backend/src/logs/pm2-out.log',
-    log_file: '/opt/tradetally/backend/src/logs/pm2-combined.log',
+    error_file: '/opt/blipyy/backend/src/logs/pm2-error.log',
+    out_file: '/opt/blipyy/backend/src/logs/pm2-out.log',
+    log_file: '/opt/blipyy/backend/src/logs/pm2-combined.log',
     time: true,
     watch: false,
     max_memory_restart: '1G',
@@ -235,7 +235,7 @@ Start the application:
 
 ```bash
 # Start with PM2
-cd /opt/tradetally
+cd /opt/blipyy
 pm2 start ecosystem.config.js
 
 # Save PM2 configuration
@@ -251,12 +251,12 @@ pm2 startup systemd
 Create systemd service file:
 
 ```bash
-sudo nano /etc/systemd/system/tradetally.service
+sudo nano /etc/systemd/system/blipyy.service
 ```
 
 ```ini
 [Unit]
-Description=TradeTally Trading Journal Application
+Description=Blipyy Trading Journal Application
 After=network.target postgresql.service
 Requires=postgresql.service
 
@@ -264,16 +264,16 @@ Requires=postgresql.service
 Type=simple
 User=www-data
 Group=www-data
-WorkingDirectory=/opt/tradetally
+WorkingDirectory=/opt/blipyy
 Environment="NODE_ENV=production"
 Environment="PORT=3000"
-EnvironmentFile=/opt/tradetally/backend/.env
+EnvironmentFile=/opt/blipyy/backend/.env
 ExecStartPre=/usr/bin/pnpm --dir backend run migrate
 ExecStart=/usr/bin/node backend/src/server.js
 Restart=always
 RestartSec=10
-StandardOutput=append:/opt/tradetally/backend/src/logs/systemd.log
-StandardError=append:/opt/tradetally/backend/src/logs/systemd-error.log
+StandardOutput=append:/opt/blipyy/backend/src/logs/systemd.log
+StandardError=append:/opt/blipyy/backend/src/logs/systemd-error.log
 
 [Install]
 WantedBy=multi-user.target
@@ -283,9 +283,9 @@ Enable and start the service:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable tradetally
-sudo systemctl start tradetally
-sudo systemctl status tradetally
+sudo systemctl enable blipyy
+sudo systemctl start blipyy
+sudo systemctl status blipyy
 ```
 
 ## Step 6: Configure Nginx
@@ -293,7 +293,7 @@ sudo systemctl status tradetally
 ### 6.1 Create Nginx Configuration
 
 ```bash
-sudo nano /etc/nginx/sites-available/tradetally
+sudo nano /etc/nginx/sites-available/blipyy
 ```
 
 ```nginx
@@ -316,7 +316,7 @@ server {
     ssl_ciphers HIGH:!aNULL:!MD5;
 
     # Frontend files
-    root /opt/tradetally/frontend/dist;
+    root /opt/blipyy/frontend/dist;
     index index.html;
 
     # API proxy
@@ -377,7 +377,7 @@ server {
 
 ```bash
 # Enable site
-sudo ln -s /etc/nginx/sites-available/tradetally /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/blipyy /etc/nginx/sites-enabled/
 
 # Test configuration
 sudo nginx -t
@@ -403,7 +403,7 @@ If you front the app with Cloudflare, also enable `Always Use HTTPS` and use SSL
 ## Step 7: Run Database Migrations
 
 ```bash
-cd /opt/tradetally
+cd /opt/blipyy
 pnpm --dir backend run migrate
 ```
 
@@ -414,11 +414,11 @@ pnpm --dir backend run migrate
 Create logrotate configuration:
 
 ```bash
-sudo nano /etc/logrotate.d/tradetally
+sudo nano /etc/logrotate.d/blipyy
 ```
 
 ```
-/opt/tradetally/backend/src/logs/*.log {
+/opt/blipyy/backend/src/logs/*.log {
     daily
     rotate 14
     compress
@@ -437,14 +437,14 @@ sudo nano /etc/logrotate.d/tradetally
 Create backup script:
 
 ```bash
-nano /opt/tradetally/scripts/backup.sh
+nano /opt/blipyy/scripts/backup.sh
 ```
 
 ```bash
 #!/bin/bash
-BACKUP_DIR="/backup/tradetally"
+BACKUP_DIR="/backup/blipyy"
 DATE=$(date +%Y%m%d_%H%M%S)
-DB_NAME="tradetally"
+DB_NAME="blipyy"
 DB_USER="trader"
 
 # Create backup directory
@@ -460,7 +460,7 @@ gzip $BACKUP_DIR/db_backup_$DATE.sql
 find $BACKUP_DIR -name "*.sql.gz" -mtime +30 -delete
 
 # Backup uploaded files
-tar -czf $BACKUP_DIR/files_backup_$DATE.tar.gz /opt/tradetally/backend/src/data/
+tar -czf $BACKUP_DIR/files_backup_$DATE.tar.gz /opt/blipyy/backend/src/data/
 
 echo "Backup completed: $DATE"
 ```
@@ -468,10 +468,10 @@ echo "Backup completed: $DATE"
 Make it executable and add to crontab:
 
 ```bash
-chmod +x /opt/tradetally/scripts/backup.sh
+chmod +x /opt/blipyy/scripts/backup.sh
 
 # Add to crontab (runs daily at 2 AM)
-(crontab -l 2>/dev/null; echo "0 2 * * * /opt/tradetally/scripts/backup.sh") | crontab -
+(crontab -l 2>/dev/null; echo "0 2 * * * /opt/blipyy/scripts/backup.sh") | crontab -
 ```
 
 ## Step 9: Verify Migration
@@ -483,7 +483,7 @@ chmod +x /opt/tradetally/scripts/backup.sh
 curl http://localhost:3000/api/health
 
 # Check PostgreSQL
-sudo -u postgres psql -c "\l" | grep tradetally
+sudo -u postgres psql -c "\l" | grep blipyy
 
 # Check PM2 status
 pm2 status
@@ -509,10 +509,10 @@ Once you've verified everything is working:
 docker-compose -f docker-compose.dev.yaml down
 
 # Remove Docker volumes (ONLY after confirming data is migrated!)
-docker volume rm tradetally_postgres_data_dev
+docker volume rm blipyy_postgres_data_dev
 
 # Remove Docker images (optional)
-docker rmi tradetally-app:latest
+docker rmi blipyy-app:latest
 ```
 
 ## Rollback Plan
@@ -561,8 +561,8 @@ In PM2 config, adjust:
 
 1. **Permission Errors**
    ```bash
-   sudo chown -R www-data:www-data /opt/tradetally/backend/src/data
-   sudo chown -R www-data:www-data /opt/tradetally/backend/src/logs
+   sudo chown -R www-data:www-data /opt/blipyy/backend/src/data
+   sudo chown -R www-data:www-data /opt/blipyy/backend/src/logs
    ```
 
 2. **Database Connection Issues**
@@ -580,21 +580,21 @@ In PM2 config, adjust:
 
 4. **PM2 Issues**
    ```bash
-   pm2 logs tradetally-backend
-   pm2 restart tradetally-backend
+   pm2 logs blipyy-backend
+   pm2 restart blipyy-backend
    ```
 
 ## Monitoring Commands
 
 ```bash
 # View backend logs
-pm2 logs tradetally-backend
+pm2 logs blipyy-backend
 
 # Monitor resources
 pm2 monit
 
 # Database connections
-sudo -u postgres psql -c "SELECT count(*) FROM pg_stat_activity WHERE datname = 'tradetally';"
+sudo -u postgres psql -c "SELECT count(*) FROM pg_stat_activity WHERE datname = 'blipyy';"
 
 # Nginx access logs
 tail -f /var/log/nginx/access.log
